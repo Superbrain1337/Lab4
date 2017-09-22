@@ -9,33 +9,32 @@ namespace Game
     class Room:Entities
     {
         private static Entities entities = new Entities();
-        private static int direction = entities.RandomNumb(100) % 2;
-        private static int lenght = entities.Board.GetLength(direction);
+        private int direction;
+        private int lenght;
         private int start;
         private int end;
         private int pos;
 
         public int Start { get => start; set => start = value; }
         public int End { get => end; set => end = value; }
+        
 
-        public static int GetDirection()
+        public void DrawWalls(Entities entities)
         {
-            return direction;
-        }
-
-        public void DrawWalls(int start, int end)
-        {
-            start = RandomNumb(lenght);
-            end = start + RandomNumb(lenght - start);
-            for (int i = 0; i < RandomNumb(10); i++)
+            lenght = entities.Board.GetLength(direction);
+            int r = RandomNumb(20);
+            for (int i = 0; i < r; i++)
             {
-                pos = RandomNumb(entities.Board.GetLength(GetDirection()));
-                if (GetDirection() == 0)
+                direction = entities.RandomNumb(100) % 2;
+                start = RandomNumb(lenght);
+                end = start + RandomNumb(lenght - start);
+                pos = RandomNumb(entities.Board.GetLength(direction));
+                if (direction == 0)
                 {
                     Y = pos;
                     for (int j = start; j < end; j++)
                     {
-                        entities.Board[Y, i] = '#';
+                        entities.Board[Y, j] = '#';
                     }
                 }
                 else
@@ -43,14 +42,13 @@ namespace Game
                     X = pos;
                     for (int j = start; j < end; j++)
                     {
-                        entities.Board[i, X] = '#';
+                        entities.Board[j, X] = '#';
                     }
                 }
             }
-            
         }
 
-        public Room()
+        public void CreateRoom(Entities entities)
         {
             for (int i = 0; i < entities.Board.GetLength(0); i++)
             {
@@ -67,13 +65,6 @@ namespace Game
 
                 }
             }
-            /*for(int i = 0; i < RandomNumb(10); i++)
-            {
-                start = RandomNumb(lenght);
-                end = start + RandomNumb(lenght - start);
-                wall.DrawWall(start, end);
-            }
-            */
         }
         
     }

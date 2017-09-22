@@ -14,6 +14,8 @@ namespace Game
         {
             Room R = new Room();
             Entities B = new Entities();
+            R.CreateRoom(B);
+            R.DrawWalls(B);
             Random rnd = new Random();
             char[,] board = new char[20, 50];
             board = B.Board;
