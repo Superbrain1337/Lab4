@@ -9,7 +9,6 @@ namespace Game
 {
     class Program
     {
-        
 
         public static void DrawBoard(char[,] array)
         {
@@ -26,29 +25,19 @@ namespace Game
 
         static void Main(string[] args)
         {
+            Room R = new Room();
+            Entities B = new Entities();
             Random rnd = new Random();
-            bool loseGame = false;
             char[,] board = new char[20, 50];
+            board = B.Board;
+            bool loseGame = false;
             int px = 25, py = 18;
+            
             int highscore = 0, count = 0;
             ConsoleKeyInfo key = new ConsoleKeyInfo();
             
             const string controls = "P = player, W = Walker, R = Runner, F = Fatty, A = Abommenation";
-            for(int i = 0; i < board.GetLength(0); i++)
-            {
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    if(i == board.GetLowerBound(0) || j == board.GetLowerBound(1) || i == board.GetUpperBound(0) || j == board.GetUpperBound(1))
-                    {
-                        board[i, j] = '#';
-                    }
-                    else
-                    {
-                        board[i, j] = ' ';
-                    }
-                    
-                }
-            }
+            
             board[py, px] = 'P';
             while (!loseGame)
             {
