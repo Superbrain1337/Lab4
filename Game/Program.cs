@@ -9,7 +9,10 @@ using System.Timers;
 namespace Game
 {
     class Program
-    { 
+    {
+        int w, e, r, t;
+        9
+
         static void Main(string[] args)
         {
             Room R = new Room();
