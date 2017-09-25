@@ -34,7 +34,7 @@ namespace Game
                     Y = pos;
                     for (int j = start; j < end; j++)
                     {
-                        entities.Board[Y, j] = '#';
+                        entities.Board[Y, j] = Rutor.Wall; ;
                     }
                 }
                 else
@@ -42,7 +42,7 @@ namespace Game
                     X = pos;
                     for (int j = start; j < end; j++)
                     {
-                        entities.Board[j, X] = '#';
+                        entities.Board[j, X] = Rutor.Wall;
                     }
                 }
             }
@@ -56,11 +56,11 @@ namespace Game
                 {
                     if (i == entities.Board.GetLowerBound(0) || j == entities.Board.GetLowerBound(1) || i == entities.Board.GetUpperBound(0) || j == entities.Board.GetUpperBound(1))
                     {
-                        entities.Board[i, j] = '#';
+                        entities.Board[i, j] = Rutor.Wall;
                     }
                     else
                     {
-                        entities.Board[i, j] = ' ';
+                        entities.Board[i, j] = Rutor.Room;
                     }
 
                 }

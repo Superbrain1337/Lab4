@@ -9,7 +9,8 @@ using System.Timers;
 namespace Game
 {
     class Program
-    { 
+    {
+        
         static void Main(string[] args)
         {
             Room R = new Room();
@@ -17,7 +18,7 @@ namespace Game
             R.CreateRoom(B);
             R.DrawWalls(B);
             Random rnd = new Random();
-            char[,] board = new char[20, 50];
+            Rutor[,] board = new Rutor[20, 50];
             board = B.Board;
             bool loseGame = false;
             int px = 25, py = 18;
@@ -26,39 +27,39 @@ namespace Game
             
             const string controls = "P = player, W = Walker, R = Runner, F = Fatty, A = Abommenation";
             
-            board[py, px] = 'P';
+            board[py, px] = Rutor.Player;
             while (!loseGame)
             {
                 Draw.DrawScreen(board,controls);
                 userMovementInput = Console.ReadKey(false);
-                board[py, px] = ' ';
+                board[py, px] = Rutor.Room;
                 playerUsedActions++;
                 switch (userMovementInput.Key)
                 {
                     case ConsoleKey.W:
                     case ConsoleKey.UpArrow:
-                        if(board[py - 1,px] != '#')
+                        if(board[py - 1,px] != Rutor.Wall)
                             py--;
                         break;
                     case ConsoleKey.S:
                     case ConsoleKey.DownArrow:
-                        if (board[py + 1, px] != '#')
+                        if (board[py + 1, px] != Rutor.Wall)
                             py++;
                         break;
                     case ConsoleKey.A:
                     case ConsoleKey.LeftArrow:
-                        if (board[py, px - 1] != '#')
+                        if (board[py, px - 1] != Rutor.Wall)
                             px--;
                         break;
                     case ConsoleKey.D:
                     case ConsoleKey.RightArrow:
-                        if (board[py, px + 1] != '#')
+                        if (board[py, px + 1] != Rutor.Wall)
                             px++;
                         break;
                     default:
                         break;
                 }
-                board[py, px] = 'P';
+                board[py, px] = Rutor.Player;
                 if(px == 2 && py == 2)
                 {
                     highscore = 100 - playerUsedActions;
