@@ -15,8 +15,10 @@ namespace Game
         {
             Room R = new Room();
             Entities B = new Entities();
+            Door D = new Door();
             R.CreateRoom(B);
             R.DrawWalls(B);
+            D.CreateExit(B);
             Random rnd = new Random();
             Rutor[,] board = new Rutor[20, 50];
             board = B.Board;
