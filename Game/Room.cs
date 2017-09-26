@@ -1,9 +1,10 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+/*
 namespace Game
 {
     class Room:Entities
@@ -59,23 +60,10 @@ namespace Game
         public void CreateRoom(Entities entities)
         {
             Console.ForegroundColor = (ConsoleColor)RandomNumb(16);
-            for (int i = 0; i < entities.Board.GetLength(0); i++)
-            {
-                for (int j = 0; j < entities.Board.GetLength(1); j++)
-                {
-                    if (i == entities.Board.GetLowerBound(0) || j == entities.Board.GetLowerBound(1) || i == entities.Board.GetUpperBound(0) || j == entities.Board.GetUpperBound(1))
-                    {
-                        entities.Board[i, j] = Rutor.Wall;
-                    }
-                    else
-                    {
-                        entities.Board[i, j] = Rutor.Room;
-                    }
-
-                }
-            }
+            
             
         }
         
     }
 }
+*/
