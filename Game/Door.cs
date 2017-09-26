@@ -15,23 +15,23 @@ namespace Game
             int pos;
             if(wall == 0)
             {
-                pos = RandomNumb(entities.Board.GetLength(1));
-                entities.Board[0, pos] = Rutor.Door;
+                pos = 1 + RandomNumb(entities.Board.GetLength(1) - 2);
+                entities.Board[0, pos] = new Door();
             }
             else if(wall == 1)
             {
-                pos = RandomNumb(entities.Board.GetLength(0));
-                entities.Board[pos, entities.Board.GetLength(1)-1] = Rutor.Door;
+                pos = 1 + RandomNumb(entities.Board.GetLength(0) - 2);
+                entities.Board[pos, entities.Board.GetLength(1)-1] = new Door();
             }
             else if (wall == 2)
             {
-                pos = RandomNumb(entities.Board.GetLength(1));
-                entities.Board[entities.Board.GetLength(0)-1, pos] = Rutor.Door;
+                pos = 1 + RandomNumb(entities.Board.GetLength(1) - 2);
+                entities.Board[entities.Board.GetLength(0)-1, pos] = new Door();
             }
             else
             {
-                pos = RandomNumb(entities.Board.GetLength(0));
-                entities.Board[pos, 0] = Rutor.Door;
+                pos = 1 + RandomNumb(entities.Board.GetLength(0) - 2);
+                entities.Board[pos, 0] = new Door();
             }
         }
     }

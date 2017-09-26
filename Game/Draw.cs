@@ -9,7 +9,7 @@ namespace Game
 {
     class Draw
     {
-        public static void DrawScreen(Rutor[,] boardArray, string controls)
+        public static void DrawScreen(Entities[,] boardArray, string controls)
         {
             var stopwatch = new Stopwatch();
             Console.Clear();
@@ -22,7 +22,7 @@ namespace Game
             {
                 for (int j = 0; j < boardArray.GetLength(1); j++)
                 {
-                    line[i] += (char)boardArray[i, j];
+                    line[i] += boardArray[i, j].Letter;
                 }
             }
             stopwatch.Start();

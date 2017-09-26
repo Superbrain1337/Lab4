@@ -8,35 +8,31 @@ namespace Game
 {
     class Room:Entities
     {
-        private static Entities entities = new Entities();
         private int direction;
         private int lenght;
         private int start;
         private int end;
         private int pos;
-
-        public int Start { get => start; set => start = value; }
-        public int End { get => end; set => end = value; }
         
 
-        public void DrawWalls(Entities entities)
+        public void DrawWalls()
         {
             
             int r = RandomNumb(40);
             for (int i = 0; i < r; i++)
             {
                 Console.ForegroundColor = (ConsoleColor)(RandomNumb(15)+1);
-                direction = entities.RandomNumb(100) % 2;
-                lenght = entities.Board.GetLength(direction);
+                direction = RandomNumb(100) % 2;
+                lenght = Board.GetLength(direction);
                 start = 2 + RandomNumb(lenght - 2);
                 end = start + RandomNumb(lenght - start);
-                pos = RandomNumb(entities.Board.GetLength((direction+1)%2));
+                pos = RandomNumb(Board.GetLength((direction+1)%2));
                 if (direction == 1)
                 {
                     Y = pos;
                     for (int j = start; j < end; j++)
                     {
-                        entities.Board[Y, j] = Rutor.Wall;
+                        Board[Y, j] = new Room();
                         //if (Y + 1 <= lenght && entities.Board[j, Y + 1] != Rutor.Wall ) entities.Board[j, Y + 1] = Rutor.Room;
                         //if (Y - 1 >= 0 && entities.Board[j, Y - 1] != Rutor.Wall ) entities.Board[j, Y - 1] = Rutor.Room;
                         //if (j == end - 1) entities.Board[j + 1, Y] = Rutor.Room;
@@ -47,7 +43,7 @@ namespace Game
                     X = pos;
                     for (int j = start; j < end; j++)
                     {
-                        entities.Board[j, X] = Rutor.Wall;
+                        Board[j, X] = new Room();
                         //if ( X + 1 <= lenght && entities.Board[X + 1, j] != Rutor.Wall) entities.Board[j, X + 1] = Rutor.Room;
                         //if (X - 1 >= 0 && entities.Board[X - 1, j] != Rutor.Wall ) entities.Board[j, X - 1] = Rutor.Room;
                         //if (j == end - 1) entities.Board[X, j + 1] = Rutor.Room;
@@ -56,20 +52,16 @@ namespace Game
             }
         }
 
-        public void CreateRoom(Entities entities)
+        public void CreateRoom()
         {
             Console.ForegroundColor = (ConsoleColor)RandomNumb(16);
-            for (int i = 0; i < entities.Board.GetLength(0); i++)
+            for (int i = 0; i < Board.GetLength(0); i++)
             {
-                for (int j = 0; j < entities.Board.GetLength(1); j++)
+                for (int j = 0; j < Board.GetLength(1); j++)
                 {
-                    if (i == entities.Board.GetLowerBound(0) || j == entities.Board.GetLowerBound(1) || i == entities.Board.GetUpperBound(0) || j == entities.Board.GetUpperBound(1))
+                    if (i == Board.GetLowerBound(0) || j == Board.GetLowerBound(1) || i == Board.GetUpperBound(0) || j == Board.GetUpperBound(1))
                     {
-                        entities.Board[i, j] = Rutor.Wall;
-                    }
-                    else
-                    {
-                        entities.Board[i, j] = Rutor.Room;
+                        Board[i, j] = new Room();
                     }
 
                 }

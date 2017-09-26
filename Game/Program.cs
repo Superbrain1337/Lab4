@@ -16,11 +16,11 @@ namespace Game
             Room R = new Room();
             Entities B = new Entities();
             Door D = new Door();
-            R.CreateRoom(B);
-            R.DrawWalls(B);
+            R.CreateRoom();
+            R.DrawWalls();
             D.CreateExit(B);
             Random rnd = new Random();
-            Rutor[,] board = new Rutor[20, 50];
+            Entities[,] board = new Entities[20, 50];
             board = B.Board;
             bool loseGame = false;
             int px = 25, py = 18;
@@ -29,7 +29,7 @@ namespace Game
             
             const string controls = "P = player, W = Walker, R = Runner, F = Fatty, A = Abommenation";
             
-            board[py, px] = Rutor.Player;
+            board[py, px] = new Player();
             while (!loseGame)
             {
                 Draw.DrawScreen(board,controls);
