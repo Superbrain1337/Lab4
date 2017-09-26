@@ -9,10 +9,11 @@ namespace Game
 {
     public class Draw
     {
+
         static string controls = $"{Program.Player.Letter} = Player, E = Enemy, # = Wall, D = Door, K = Key";
 
         //Draws what CreateScreen set as output
-        public static void DrawScreen(char[,] boardArray)
+        public static void DrawScreen(Rutor[,] boardArray)
         {
             Console.Clear();
             
@@ -30,7 +31,7 @@ namespace Game
             {
                 for (int j = 0; j < boardArray.GetLength(1); j++)
                 {
-                    boardArrayLine[i] += boardArray[i, j];
+                  boardArrayLine[i] += (char)boardArray[i, j];
                 }
             }
 

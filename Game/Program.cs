@@ -10,19 +10,22 @@ namespace Game
 {
     class Program
     {
+
         public static PlayerClass Player = new PlayerClass();
         public static Room Room = new Room();
         public static Entities Board = new Entities();
+
         static void Main(string[] args)
         {
-            
             Entities B = new Entities();
-            
+            Door D = new Door();
             Room.CreateRoom(B);
             Room.DrawWalls(B);
+            D.CreateExit(B);
             Random rnd = new Random();
-            char[,] boarGrid = new char[20, 50];
+            Rutor[,] boarGrid = new Rutor[20, 50];
             boarGrid = B.Board;
+
             bool loseGame = false;
             
             Player.X = 25;
@@ -30,9 +33,7 @@ namespace Game
             int highscore = 0, playerUsedActions = 0;
             ConsoleKeyInfo userMovementInput = new ConsoleKeyInfo();
             Console.CursorVisible = false;
-            
-            boarGrid[Player.Y, Player.X] = 'P';
-
+            boarGrid[Player.Y, Player.X] = Rutor.Player;
             Draw.DrawScreen(boarGrid);
             while (!loseGame)
             {
@@ -44,32 +45,32 @@ namespace Game
                 {
                     case ConsoleKey.W:
                     case ConsoleKey.UpArrow:
-                        if (boarGrid[Player.Y - 1, Player.X] != '#')
+
+                        if (boarGrid[Player.Y - 1, Player.X] != Rutor.Wall)
                             Player.Y--;
                         break;
                     case ConsoleKey.S:
                     case ConsoleKey.DownArrow:
-                        if (boarGrid[Player.Y + 1, Player.X] != '#')
+                        if (boarGrid[Player.Y + 1, Player.X] != Rutor.Wall)
                             Player.Y++;
                         break;
                     case ConsoleKey.A:
                     case ConsoleKey.LeftArrow:
-                        if (boarGrid[Player.Y, Player.X - 1] != '#')
+                        if (boarGrid[Player.Y, Player.X - 1] != Rutor.Wall)
                             Player.X--;
                         break;
                     case ConsoleKey.D:
                     case ConsoleKey.RightArrow:
-                        if (boarGrid[Player.Y, Player.X + 1] != '#')
+                        if (boarGrid[Player.Y, Player.X + 1] != Rutor.Wall)
                             Player.X++;
                         break;
                     default:
                         break;
                 }
-
                 if (Player.PrevX != Player.X || Player.PrevY != Player.Y)
                 {
                     Draw.Plot(Player.PrevX, Player.PrevY, ' ');
-                    Draw.Plot(Player.X, Player.Y, 'P');
+                    Draw.Plot(Player.X, Player.Y, Rutor.Playe);
                 }
                 if (Player.X == 2 && Player.Y == 2)
                 {
