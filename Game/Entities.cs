@@ -26,4 +26,13 @@ namespace Game
         public int NumbOfKeys { get { return numbOfKeys; } set { numbOfKeys = value; } }
         
     }
+    class PlayerClass : Entities
+    {
+        private int prevX = 0;
+        private int prevY = 0;
+
+        public int PrevX { get; set; }
+        public int PrevY { get; set; }
+
+    }
 }
