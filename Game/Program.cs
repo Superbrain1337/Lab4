@@ -10,57 +10,69 @@ namespace Game
 {
     class Program
     {
-        int w, e, r, t;
-        9
+
+        public static PlayerClass Player = new PlayerClass();
+        public static Room Room = new Room();
+        public static Entities Board = new Entities();
 
         static void Main(string[] args)
         {
-            Room R = new Room();
             Entities B = new Entities();
+            Door D = new Door();
+            Room.CreateRoom(B);
+            Room.DrawWalls(B);
+            D.CreateExit(B);
             Random rnd = new Random();
-            char[,] board = new char[20, 50];
-            board = B.Board;
+            Rutor[,] boarGrid = new Rutor[20, 50];
+            boarGrid = B.Board;
+
             bool loseGame = false;
-            int px = 25, py = 18;
+            
+            Player.X = 25;
+            Player.Y = 18;
             int highscore = 0, playerUsedActions = 0;
             ConsoleKeyInfo userMovementInput = new ConsoleKeyInfo();
-            
-            const string controls = "P = player, W = Walker, R = Runner, F = Fatty, A = Abommenation";
-            
-            board[py, px] = 'P';
+            Console.CursorVisible = false;
+            boarGrid[Player.Y, Player.X] = Rutor.Player;
+            Draw.DrawScreen(boarGrid);
             while (!loseGame)
             {
-                Draw.DrawScreen(board,controls);
-                userMovementInput = Console.ReadKey(false);
-                board[py, px] = ' ';
+                userMovementInput = Console.ReadKey(true);
+                Player.PrevX = Player.X;
+                Player.PrevY = Player.Y;
                 playerUsedActions++;
                 switch (userMovementInput.Key)
                 {
                     case ConsoleKey.W:
                     case ConsoleKey.UpArrow:
-                        if(board[py - 1,px] != '#')
-                            py--;
+
+                        if (boarGrid[Player.Y - 1, Player.X] != Rutor.Wall)
+                            Player.Y--;
                         break;
                     case ConsoleKey.S:
                     case ConsoleKey.DownArrow:
-                        if (board[py + 1, px] != '#')
-                            py++;
+                        if (boarGrid[Player.Y + 1, Player.X] != Rutor.Wall)
+                            Player.Y++;
                         break;
                     case ConsoleKey.A:
                     case ConsoleKey.LeftArrow:
-                        if (board[py, px - 1] != '#')
-                            px--;
+                        if (boarGrid[Player.Y, Player.X - 1] != Rutor.Wall)
+                            Player.X--;
                         break;
                     case ConsoleKey.D:
                     case ConsoleKey.RightArrow:
-                        if (board[py, px + 1] != '#')
-                            px++;
+                        if (boarGrid[Player.Y, Player.X + 1] != Rutor.Wall)
+                            Player.X++;
                         break;
                     default:
                         break;
                 }
-                board[py, px] = 'P';
-                if(px == 2 && py == 2)
+                if (Player.PrevX != Player.X || Player.PrevY != Player.Y)
+                {
+                    Draw.Plot(Player.PrevX, Player.PrevY, ' ');
+                    Draw.Plot(Player.X, Player.Y, Rutor.Playe);
+                }
+                if (Player.X == 2 && Player.Y == 2)
                 {
                     highscore = 100 - playerUsedActions;
                     loseGame = true;
@@ -69,5 +81,8 @@ namespace Game
             Draw.DrawGameOver(highscore);
             Console.ReadLine();
         }
+
+        
+        
     }
 }
