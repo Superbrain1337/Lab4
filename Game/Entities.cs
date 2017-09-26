@@ -21,4 +21,13 @@ namespace Game
         public char[,] Board { get { return board; } set { board = value; } }
         
     }
+    class PlayerClass : Entities
+    {
+        private int prevX = 0;
+        private int prevY = 0;
+
+        public int PrevX { get; set; }
+        public int PrevY { get; set; }
+
+    }
 }
