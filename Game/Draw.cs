@@ -10,29 +10,28 @@ namespace Game
     public class Draw
     {
 
-        static string controls = $"{Program.Player.Letter} = Player, E = Enemy, # = Wall, D = Door, K = Key";
+        static string controls = $" = Player,  = Enemy, # = Wall, D = Door, K = Key";
 
         //Draws what CreateScreen set as output
-        public static void DrawScreen(Entities[,] boardArray)
+        public static void DrawScreen(Entities[,] boardArrayDrawScreen)
         {
-            
             Console.Clear();
-            
-            Console.WriteLine(CreateScreen(boardArray));
+            Console.WriteLine(CreateScreen(boardArrayDrawScreen));
         }
 
         //Sets what to be printed in DrawScreen
-        public static string CreateScreen(Entities[,] boardArray)
+        public static string CreateScreen(Entities[,] boardArrayCreateScreen)
         {
-            string[] boardArrayLine = new string[boardArray.GetLength(0)];
+            int debug = boardArrayCreateScreen.GetLength(0);
+            string[] boardArrayLine = new string[debug];
             string output = "";
 
             //Loops thru the boardArray placing all collums of the first row, secon row and so forth in a string
-            for (int i = 0; i < boardArray.GetLength(0); i++)
+            for (int i = 0; i < boardArrayCreateScreen.GetLength(0); i++)
             {
-                for (int j = 0; j < boardArray.GetLength(1); j++)
+                for (int j = 0; j < boardArrayCreateScreen.GetLength(1); j++)
                 {
-                  boardArrayLine[i] += boardArray[i, j].Letter;
+                  boardArrayLine[i] += boardArrayCreateScreen[i, j].Letter;
                 }
             }
 

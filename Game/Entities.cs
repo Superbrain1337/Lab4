@@ -9,64 +9,117 @@ namespace Game
     
     public class Entities
     {
-        
-        private int x = 0;
-        private int y = 0;
-        private char letter;
-        private Random rnd = new Random();
-        private char[,] board = new char[20, 50];
-        
+        public int X { get; set; }
+        public int Y { get; set; }
+        public char Letter { get; set; }
 
-
-        public int X { get { return x; } set { x = value; } }
-        public int Y { get { return y; } set { y = value; } }
-        public char Letter { get { return letter; } set { letter = value; } }
-        public int RandomNumb(int x) => rnd.Next(x);
-        public char[,] Board { get { return board; } set { board = value; } }
-        
-    }
-    class PlayerClass : Entities
-    {
-        public PlayerClass() : base()
+        public Entities()
         {
-
+            X = 0;
+            Y = 0;
+            Letter=' ';
         }
 
-        private int prevX = 0;
-        private int prevY = 0;
-        private char letter;
-
-
-        public int PrevX { get { return prevX; } set { prevX = value; } }
-        public int PrevY { get { return prevY; } set { prevY = value; } }
-        
-
+        public Entities(int x, int y, char letter, Random rnd, char[,] board)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Letter = letter;
+        }
     }
-    class EmptyClass : Entities
+    
+    public class EnemyClass : Entities
     {
-        private char letter;
+        public EnemyClass()
+        {
+            Letter = 'E';
+        }
 
-        public new char Letter { get { return letter; } set { letter = ' '; } }
+        public EnemyClass(int x, int y, char letter, Random rnd, char[,] board)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Letter = letter;
+        }
     }
-    class WallClass : Entities
-    {
-        private char letter;
 
-        public new char Letter { get { return letter; } set { letter = '#'; } }
+    public class EmptyClass : Entities
+    {
+        public EmptyClass()
+        {
+            Letter = ' ';
+        }
+
+        public EmptyClass(int x, int y, char letter, Random rnd, char[,] board)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Letter = letter;
+        }
     }
-    class DoorClass : Entities
-    {
 
+    public class WallClass : Entities
+    {
+        public WallClass()
+        {
+            Letter = '#';
+        }
+
+        public WallClass(int x, int y, char letter, Random rnd, char[,] board)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Letter = letter;
+        }
     }
-    class KeyClass : Entities
-    {
 
+    public class DoorClass : Entities
+    {
+        public DoorClass()
+        {
+            Letter = 'D';
+        }
+
+        public DoorClass(int x, int y, char letter, Random rnd, char[,] board)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Letter = letter;
+        }
     }
-    class BoardClass : Entities
-    {
-        int x, y;
 
-        public new int X { get { return x; } set { x = 20; } }
-        public new int Y { get { return y; } set { y = 50; } }
+    public class KeyClass : Entities
+    {
+        public KeyClass()
+        {
+            Letter = 'K';
+        }
+
+        public KeyClass(int x, int y, char letter, Random rnd, char[,] board)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Letter = letter;
+        }
+    }
+
+    public class BoardClass : Entities
+    {
+        public new int X { get; set; }
+        public new int Y { get; set; }
+
+
+        public BoardClass()
+        {
+            X = 20;
+            Y = 50;
+        }
+
+        public BoardClass(int x, int y, char letter, Random rnd, char[,] board)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Letter = letter;
+        }
     }
 }
