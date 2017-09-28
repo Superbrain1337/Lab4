@@ -11,20 +11,20 @@ namespace Game
     class Program
     {
 
-        public static PlayerClass Player = new PlayerClass();
-        public static Room Room = new Room();
+        public static Player Player = new Player();
+        public static Wall Wall = new Wall();
+        public static Door Door = new Door();
         public static Entities Board = new Entities();
 
         static void Main(string[] args)
         {
             Entities B = new Entities();
-            Door D = new Door();
-            Room.CreateRoom(B);
-            Room.DrawWalls(B);
-            D.CreateExit(B);
+            Wall.CreateRoom();
+            Wall.DrawWalls();
+            Door.CreateExit();
             Random rnd = new Random();
-            Entities[,] board = new Entities[20, 50];
-            board = B.Board;
+            Entities[,] boardGrid = new Entities[20, 50];
+            boardGrid = Board.Board;
             bool loseGame = false;
             
             Player.X = 25;
@@ -32,8 +32,8 @@ namespace Game
             int highscore = 0, playerUsedActions = 0;
             ConsoleKeyInfo userMovementInput = new ConsoleKeyInfo();
             Console.CursorVisible = false;
-            boarGrid[Player.Y, Player.X] = Rutor.Player;
-            Draw.DrawScreen(boarGrid);
+            boardGrid[Player.Y, Player.X] = new Player();
+            Draw.DrawScreen(boardGrid);
             while (!loseGame)
             {
                 userMovementInput = Console.ReadKey(true);
@@ -45,22 +45,22 @@ namespace Game
                     case ConsoleKey.W:
                     case ConsoleKey.UpArrow:
 
-                        if (boarGrid[Player.Y - 1, Player.X] != Rutor.Wall)
+                        if (boardGrid[Player.Y - 1, Player.X] != new Wall())
                             Player.Y--;
                         break;
                     case ConsoleKey.S:
                     case ConsoleKey.DownArrow:
-                        if (boarGrid[Player.Y + 1, Player.X] != Rutor.Wall)
+                        if (boardGrid[Player.Y + 1, Player.X] != new Wall())
                             Player.Y++;
                         break;
                     case ConsoleKey.A:
                     case ConsoleKey.LeftArrow:
-                        if (boarGrid[Player.Y, Player.X - 1] != Rutor.Wall)
+                        if (boardGrid[Player.Y, Player.X - 1] != new Wall())
                             Player.X--;
                         break;
                     case ConsoleKey.D:
                     case ConsoleKey.RightArrow:
-                        if (boarGrid[Player.Y, Player.X + 1] != Rutor.Wall)
+                        if (boardGrid[Player.Y, Player.X + 1] != new Wall())
                             Player.X++;
                         break;
                     default:
@@ -69,7 +69,7 @@ namespace Game
                 if (Player.PrevX != Player.X || Player.PrevY != Player.Y)
                 {
                     Draw.Plot(Player.PrevX, Player.PrevY, ' ');
-                    Draw.Plot(Player.X, Player.Y, Rutor.Playe);
+                    Draw.Plot(Player.X, Player.Y, Player.Letter);
                 }
                 if (Player.X == 2 && Player.Y == 2)
                 {

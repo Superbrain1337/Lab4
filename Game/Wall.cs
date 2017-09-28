@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Room:Entities
+    class Wall:Entities
     {
         private int direction;
         private int lenght;
@@ -14,6 +14,11 @@ namespace Game
         private int end;
         private int pos;
         
+
+        public Wall()
+        {
+            Letter = '#';
+        }
 
         public void DrawWalls()
         {
@@ -32,7 +37,7 @@ namespace Game
                     Y = pos;
                     for (int j = start; j < end; j++)
                     {
-                        Board[Y, j] = new Room();
+                        Board[Y, j] = new Wall();
                         //if (Y + 1 <= lenght && entities.Board[j, Y + 1] != Rutor.Wall ) entities.Board[j, Y + 1] = Rutor.Room;
                         //if (Y - 1 >= 0 && entities.Board[j, Y - 1] != Rutor.Wall ) entities.Board[j, Y - 1] = Rutor.Room;
                         //if (j == end - 1) entities.Board[j + 1, Y] = Rutor.Room;
@@ -43,7 +48,7 @@ namespace Game
                     X = pos;
                     for (int j = start; j < end; j++)
                     {
-                        Board[j, X] = new Room();
+                        Board[j, X] = new Wall();
                         //if ( X + 1 <= lenght && entities.Board[X + 1, j] != Rutor.Wall) entities.Board[j, X + 1] = Rutor.Room;
                         //if (X - 1 >= 0 && entities.Board[X - 1, j] != Rutor.Wall ) entities.Board[j, X - 1] = Rutor.Room;
                         //if (j == end - 1) entities.Board[X, j + 1] = Rutor.Room;
@@ -61,7 +66,7 @@ namespace Game
                 {
                     if (i == Board.GetLowerBound(0) || j == Board.GetLowerBound(1) || i == Board.GetUpperBound(0) || j == Board.GetUpperBound(1))
                     {
-                        Board[i, j] = new Room();
+                        Board[i, j] = new Wall();
                     }
 
                 }

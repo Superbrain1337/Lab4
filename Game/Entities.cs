@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Game
 {
     //public enum Rutor { Player = 80, Enemie = 69, Wall = 35, Room = 32, Door = 68, Stairs = 83, Key = 75 };
-    abstract class Entities
+    public class Entities
     {
         
         private int x = 0;
@@ -26,13 +26,12 @@ namespace Game
         public int NumbOfKeys { get { return numbOfKeys; } set { numbOfKeys = value; } }
         
     }
-    class PlayerClass : Entities
+    public class Empty:Entities
     {
-        private int prevX = 0;
-        private int prevY = 0;
-
-        public int PrevX { get; set; }
-        public int PrevY { get; set; }
-
+        public Empty()
+        {
+            Letter = ' ';
+        }
+        
     }
 }
