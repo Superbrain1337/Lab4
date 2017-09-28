@@ -9,16 +9,16 @@ namespace Game
     public class PlayerClass : Entities
     {
         ConsoleKeyInfo userMovementInput = new ConsoleKeyInfo();
-        public int prevX { get; set; }
-        public int prevY { get; set; }
+        public int PrevX { get; set; }
+        public int PrevY { get; set; }
 
         public PlayerClass()
         {
             Letter = 'P';
             X = 25;
             Y = 18;
-            prevX = 0;
-            prevY = 0;
+            PrevX = 0;
+            PrevY = 0;
         }
 
         public PlayerClass(int x, int y, char letter, Random rnd, char[,] board, int prevX, int prevY)
@@ -27,54 +27,58 @@ namespace Game
             this.Y = y;
             this.Letter = letter;
 
-            this.prevX = prevX;
-            this.prevY = prevY;
+            this.PrevX = prevX;
+            this.PrevY = prevY;
         }
 
-        public void PlayerMovement()
+        public char[,] PlayerMovement(char[,] boardGrid, BoardClass board)
         {
             userMovementInput = Console.ReadKey(true);
-            prevX = X;
-            prevY = Y;
-            
-                
+            PlayerClass player = new PlayerClass();
+            EmptyClass empty = new EmptyClass();
+            PrevX = X;
+            PrevY = Y;
             switch (userMovementInput.Key)
             {
+                
                 case ConsoleKey.W:
                 case ConsoleKey.UpArrow:
-
-                    if (boarGrid[Player.Y - 1, Player.X] != )
-                        Player.Y--;
+                    if (boardGrid[Y - 1,  X] != board.Letter)
+                        Y--;
                     break;
                 case ConsoleKey.S:
                 case ConsoleKey.DownArrow:
-                    if (boarGrid[Player.Y + 1, Player.X] != Rutor.Wall)
-                        Player.Y++;
+                    if (boardGrid[Y + 1, X] != board.Letter)
+                        Y++;
                     break;
                 case ConsoleKey.A:
                 case ConsoleKey.LeftArrow:
-                    if (boarGrid[Player.Y, Player.X - 1] != Rutor.Wall)
-                        Player.X--;
+                    if (boardGrid[Y, X - 1] != board.Letter)
+                        X--;
                     break;
                 case ConsoleKey.D:
                 case ConsoleKey.RightArrow:
-                    if (boarGrid[Player.Y, Player.X + 1] != Rutor.Wall)
-                        Player.X++;
+                    if (boardGrid[Y, X + 1] != board.Letter)
+                        X++;
                     break;
                 default:
                     break;
             }
-            if (Player.PrevX != Player.X || Player.PrevY != Player.Y)
+            if (PrevX != X || PrevY != Y)
             {
-                Draw.Plot(Player.PrevX, Player.PrevY, Rutor.Room);
-                Draw.Plot(Player.X, Player.Y, Rutor.Player);
+                Draw.Plot(PrevX, PrevY, empty.Letter);
+                Draw.Plot(X, Y, player.Letter);
             }
 
-            if (Player.X == 2 && Player.Y == 2)
+            if (X == board.exitX && Y == board.exitY)
             {
-                highscore = 100 - playerUsedActions;
-                loseGame = true;
+                ExitRoom(true);
             }
+            return (boardGrid);
+        }
+        public void ExitRoom(bool exitedRoom)
+        {
+            Program.loseGame = true;
         }
     }
 }

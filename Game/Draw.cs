@@ -13,14 +13,14 @@ namespace Game
         static string controls = $" = Player,  = Enemy, # = Wall, D = Door, K = Key";
 
         //Draws what CreateScreen set as output
-        public static void DrawScreen(Entities[,] boardArrayDrawScreen)
+        public static void DrawScreen(char[,] boardArrayDrawScreen)
         {
             Console.Clear();
             Console.WriteLine(CreateScreen(boardArrayDrawScreen));
         }
 
         //Sets what to be printed in DrawScreen
-        public static string CreateScreen(Entities[,] boardArrayCreateScreen)
+        private static string CreateScreen(char[,] boardArrayCreateScreen)
         {
             int debug = boardArrayCreateScreen.GetLength(0);
             string[] boardArrayLine = new string[debug];
@@ -31,7 +31,7 @@ namespace Game
             {
                 for (int j = 0; j < boardArrayCreateScreen.GetLength(1); j++)
                 {
-                  boardArrayLine[i] += boardArrayCreateScreen[i, j].Letter;
+                  boardArrayLine[i] += boardArrayCreateScreen[i, j];
                 }
             }
 

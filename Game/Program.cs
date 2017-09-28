@@ -8,77 +8,86 @@ using System.Timers;
 
 namespace Game
 {
-    
+
     public class Program
     {
         public static PlayerClass Player = new PlayerClass();
+        public static bool loseGame = false;
+        public static Random r = new Random();
+
         public static void Main(string[] args)
         {
-            PlayerClass Player = new PlayerClass();
-            BoardClass Board = new BoardClass();
-            EnemyClass Enemy = new EnemyClass();
-            CreateLvl();
             Console.Read();
+            Game();
         }
 
-        public static char[,] CreateLvl()
+        public char[,] CreateLvl()
         {
             BoardClass Board = new BoardClass();
             char[,] boardGrid = new char[Board.X, Board.Y];
-            Console.WriteLine(boardGrid[0,0]);
             return (boardGrid);
         }
 
 
         public static void Game()
         {
-            //Console.WriteLine(Main.Board.X + " " + Board.Y);
-            //Door D = new Door();
-            //Room.CreateRoom(Board);
-            //Room.DrawWalls(Board);
-            //D.CreateExit(Board);
             Random rnd = new Random();
-            //boardGrid = CreateLvl();
-            bool loseGame = false;
+
             int highscore = 0, playerUsedActions = 0;
-            
             Console.CursorVisible = false;
 
-            //Draw.DrawScreen(boardGrid);
-            while (!loseGame)
-            {
-                Player.PlayerMovement();
-                playerUsedActions++;
+            PlayerClass Player = new PlayerClass();
+            BoardClass Board = new BoardClass();
+            EnemyClass Enemy = new EnemyClass();
+            Program program = new Program();
+            char[,] boardGrid = program.CreateLvl();
 
+            while (!Program.loseGame)
+            {
+                Player.PlayerMovement(boardGrid, Board);
+                playerUsedActions++;
+                Draw.DrawScreen(boardGrid);
             }
             Draw.DrawGameOver(highscore);
             Console.ReadLine();
         }
-        /*public static Entities[,] CreateLvl()
-        {
-            //creates a grid of empty places
-            
-
-
-            //Setts all Outer walls
-            for (int i = 0; i < boardGrid.GetLength(0); i++)
-            {
-                for (int j = 0; j < boardGrid.GetLength(1); j++)
-                {
-                    if (i == boardGrid.GetLowerBound(0) || j == boardGrid.GetLowerBound(1) || i == boardGrid.GetUpperBound(0) || j == boardGrid.GetUpperBound(1))
-                    {
-                        WallClass wall = new WallClass();
-                        wall.X = i;
-                        wall.Y = j;
-                    }
-
-
-                }
-            }
-            //Sets
-            return (boardGrid);
-        }
-        */
-        
     }
 }
+
+        /*public void DrawInnerWalls(WallClass wall) 
+        {
+
+            int r = Program.r(40);
+            for (int i = 0; i < r; i++)
+            {
+                //Console.ForegroundColor = (ConsoleColor)(RandomNumb(15) + 1);
+                //direction = entities.RandomNumb(100) % 2;
+                //lenght = entities.Board.GetLength(direction);
+                int start = 2 + RandomNumb(lenght - 2);
+                int end = start + RandomNumb(lenght - start);
+                int pos = RandomNumb(entities.Board.GetLength((direction + 1) % 2));
+                if (direction == 1)
+                {
+                    Y = pos;
+                    for (int j = start; j < end; j++)
+                    {
+                        entities.Board[Y, j] = Rutor.Wall;
+                        //if (Y + 1 <= lenght && entities.Board[j, Y + 1] != Rutor.Wall ) entities.Board[j, Y + 1] = Rutor.Room;
+                        //if (Y - 1 >= 0 && entities.Board[j, Y - 1] != Rutor.Wall ) entities.Board[j, Y - 1] = Rutor.Room;
+                        //if (j == end - 1) entities.Board[j + 1, Y] = Rutor.Room;
+                    }
+                }
+                else
+                {
+                    X = pos;
+                    for (int j = start; j < end; j++)
+                    {
+                        entities.Board[j, X] = Rutor.Wall;
+                        //if ( X + 1 <= lenght && entities.Board[X + 1, j] != Rutor.Wall) entities.Board[j, X + 1] = Rutor.Room;
+                        //if (X - 1 >= 0 && entities.Board[X - 1, j] != Rutor.Wall ) entities.Board[j, X - 1] = Rutor.Room;
+                        //if (j == end - 1) entities.Board[X, j + 1] = Rutor.Room;
+                    }
+                }
+            }
+        }*/
+    
