@@ -8,11 +8,16 @@ namespace Game
 {
     class Wall:Entities
     {
-        private int direction;
-        private int lenght;
-        private int start;
-        private int end;
-        private int pos;
+        public override int X { get; set; }
+        public override int Y { get; set; }
+        public override char Letter { get; set; }
+
+        public int Pos { get; set; }
+        public int End { get; set; }
+        public int Start { get; set; }
+        public int Lenght { get; set; }
+        public int Direction { get; set; }
+        public int R { get; set; }
         
 
         public Wall()
@@ -23,21 +28,21 @@ namespace Game
         public void DrawWalls()
         {
             
-            int r = RandomNumb(40);
-            for (int i = 0; i < r; i++)
+            R = Rnd.Next(40);
+            for (int i = 0; i < R; i++)
             {
-                Console.ForegroundColor = (ConsoleColor)(RandomNumb(15)+1);
-                direction = RandomNumb(100) % 2;
-                lenght = Board.GetLength(direction);
-                start = 2 + RandomNumb(lenght - 2);
-                end = start + RandomNumb(lenght - start);
-                pos = RandomNumb(Board.GetLength((direction+1)%2));
-                if (direction == 1)
+                Console.ForegroundColor = (ConsoleColor)(Rnd.Next(15)+1);
+                Direction = Rnd.Next(100) % 2;
+                Lenght = Board.GetLength(Direction);
+                Start = 2 + Rnd.Next(Lenght - 2);
+                End = Start + Rnd.Next(Lenght - Start);
+                Pos = Rnd.Next(Board.GetLength((Direction+1)%2));
+                if (Direction == 1)
                 {
-                    Y = pos;
-                    for (int j = start; j < end; j++)
+                    Y = Pos;
+                    for (int j = Start; j < End; j++)
                     {
-                        Board[Y, j] = new Wall();
+                        Board[Y, j] = Ruta.Wall;
                         //if (Y + 1 <= lenght && entities.Board[j, Y + 1] != Rutor.Wall ) entities.Board[j, Y + 1] = Rutor.Room;
                         //if (Y - 1 >= 0 && entities.Board[j, Y - 1] != Rutor.Wall ) entities.Board[j, Y - 1] = Rutor.Room;
                         //if (j == end - 1) entities.Board[j + 1, Y] = Rutor.Room;
@@ -45,10 +50,10 @@ namespace Game
                 }
                 else
                 {
-                    X = pos;
-                    for (int j = start; j < end; j++)
+                    X = Pos;
+                    for (int j = Start; j < End; j++)
                     {
-                        Board[j, X] = new Wall();
+                        Board[j, X] = Ruta.Wall;
                         //if ( X + 1 <= lenght && entities.Board[X + 1, j] != Rutor.Wall) entities.Board[j, X + 1] = Rutor.Room;
                         //if (X - 1 >= 0 && entities.Board[X - 1, j] != Rutor.Wall ) entities.Board[j, X - 1] = Rutor.Room;
                         //if (j == end - 1) entities.Board[X, j + 1] = Rutor.Room;
@@ -59,14 +64,14 @@ namespace Game
 
         public void CreateRoom()
         {
-            Console.ForegroundColor = (ConsoleColor)RandomNumb(16);
+            Console.ForegroundColor = (ConsoleColor)Rnd.Next(16);
             for (int i = 0; i < Board.GetLength(0); i++)
             {
                 for (int j = 0; j < Board.GetLength(1); j++)
                 {
                     if (i == Board.GetLowerBound(0) || j == Board.GetLowerBound(1) || i == Board.GetUpperBound(0) || j == Board.GetUpperBound(1))
                     {
-                        Board[i, j] = new Wall();
+                        Board[i, j] = Ruta.Wall;
                     }
 
                 }

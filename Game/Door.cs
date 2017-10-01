@@ -8,6 +8,12 @@ namespace Game
 {
     class Door:Entities
     {
+        public int Wall { get; set; }
+        public int Pos { get; set; }
+        public override int X { get; set; }
+        public override int Y { get; set; }
+        public override char Letter { get; set; }
+
         public Door()
         {
             Letter = 'D';
@@ -15,27 +21,27 @@ namespace Game
         
         public void CreateExit()
         {
-            int wall = RandomNumb(4);
-            int pos;
-            if(wall == 0)
+            Wall = Rnd.Next(4);
+            
+            if(Wall == 0)
             {
-                pos = 1 + RandomNumb(Board.GetLength(1) - 2);
-                Board[0, pos] = new Door();
+                Pos = 1 + Rnd.Next(Board.GetLength(1) - 2);
+                Board[0, Pos] = Ruta.Door;
             }
-            else if(wall == 1)
+            else if(Wall == 1)
             {
-                pos = 1 + RandomNumb(Board.GetLength(0) - 2);
-                Board[pos, Board.GetLength(1)-1] = new Door();
+                Pos = 1 + Rnd.Next(Board.GetLength(0) - 2);
+                Board[Pos, Board.GetLength(1)-1] = Ruta.Door;
             }
-            else if (wall == 2)
+            else if (Wall == 2)
             {
-                pos = 1 + RandomNumb(Board.GetLength(1) - 2);
-                Board[Board.GetLength(0)-1, pos] = new Door();
+                Pos = 1 + Rnd.Next(Board.GetLength(1) - 2);
+                Board[Board.GetLength(0)-1, Pos] = Ruta.Door;
             }
             else
             {
-                pos = 1 + RandomNumb(Board.GetLength(0) - 2);
-                Board[pos, 0] = new Door();
+                Pos = 1 + Rnd.Next(Board.GetLength(0) - 2);
+                Board[Pos, 0] = Ruta.Door;
             }
         }
     }

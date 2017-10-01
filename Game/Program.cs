@@ -10,62 +10,31 @@ namespace Game
 {
     class Program
     {
-
+        public enum Ruta { Player = 'P', Door = 'D', Key = 'K', Wall = '#', Enemie = 'E' }
         public static Player Player = new Player();
         public static Wall Wall = new Wall();
         public static Door Door = new Door();
-        public static Entities Board = new Entities();
+        public static Key Key = new Key();
 
         static void Main(string[] args)
         {
-            Entities B = new Entities();
             Wall.CreateRoom();
             Wall.DrawWalls();
             Door.CreateExit();
-            Random rnd = new Random();
-            Entities[,] boardGrid = new Entities[20, 50];
-            boardGrid = Board.Board;
-            bool loseGame = false;
+            Key.SpawnKey();
             
-            Player.X = 25;
-            Player.Y = 18;
-            int highscore = 0, playerUsedActions = 0;
-            ConsoleKeyInfo userMovementInput = new ConsoleKeyInfo();
-            Console.CursorVisible = false;
-            boardGrid[Player.Y, Player.X] = new Player();
+            Entities.Ruta[,] boardGrid = Entities.Board;
+            bool loseGame = false;
             Draw.DrawScreen(boardGrid);
+            
+            int highscore = 0, playerUsedActions = 0;
+            
             while (!loseGame)
             {
-                userMovementInput = Console.ReadKey(true);
-                Player.PrevX = Player.X;
-                Player.PrevY = Player.Y;
+                Player.UpdatePlayer();
                 playerUsedActions++;
-                switch (userMovementInput.Key)
-                {
-                    case ConsoleKey.W:
-                    case ConsoleKey.UpArrow:
-
-                        if (boardGrid[Player.Y - 1, Player.X] != new Wall())
-                            Player.Y--;
-                        break;
-                    case ConsoleKey.S:
-                    case ConsoleKey.DownArrow:
-                        if (boardGrid[Player.Y + 1, Player.X] != new Wall())
-                            Player.Y++;
-                        break;
-                    case ConsoleKey.A:
-                    case ConsoleKey.LeftArrow:
-                        if (boardGrid[Player.Y, Player.X - 1] != new Wall())
-                            Player.X--;
-                        break;
-                    case ConsoleKey.D:
-                    case ConsoleKey.RightArrow:
-                        if (boardGrid[Player.Y, Player.X + 1] != new Wall())
-                            Player.X++;
-                        break;
-                    default:
-                        break;
-                }
+                
+                Key.LookForKey();
                 if (Player.PrevX != Player.X || Player.PrevY != Player.Y)
                 {
                     Draw.Plot(Player.PrevX, Player.PrevY, ' ');

@@ -8,23 +8,27 @@ namespace Game
 {
     class Key:Entities
     {
+        public override int X { get; set; }
+        public override int Y { get; set; }
+        public override char Letter { get; set; }
+
         public Key()
         {
             Letter = 'K';
         }
         public void SpawnKey()
         {
-            int y = RandomNumb(Board.GetLength(0));
-            int x = RandomNumb(Board.GetLength(1));
-            if(Board[y,x] != new Wall())
+            Y = Rnd.Next(Board.GetLength(0));
+            X = Rnd.Next(Board.GetLength(1));
+            if(Board[Y,X] != Ruta.Wall)
             {
-                Board[y, x] = new Key();
+                Board[Y, X] = Ruta.Key;
             }
         }
 
         public void LookForKey()
         {
-            if(Board[Y,X] == new Key()) NumbOfKeys++;
+            if(Board[Y,X] == Ruta.Key) NumbOfKeys++;
         }
 
     }
