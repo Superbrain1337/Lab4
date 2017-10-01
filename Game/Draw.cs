@@ -9,11 +9,15 @@ namespace Game
 {
     public class Draw
     {
-
-        static string controls = $" = Player,  = Enemy, # = Wall, D = Door, K = Key";
+        public static PlayerClass player = new PlayerClass();
+        public static EnemyClass enemy = new EnemyClass();
+        public static WallClass wall = new WallClass();
+        public static DoorClass door = new DoorClass();
+        public static KeyClass key = new KeyClass();
+        static string controls = $" {player.Letter}= Player, {enemy.Letter} = Enemy, {wall.Letter} = Wall, {door.Letter} = Door, {key.Letter} = Key";
 
         //Draws what CreateScreen set as output
-        public static void DrawScreen(char[,] boardArrayDrawScreen)
+        public static void DrawScreen(char[,] boardArrayDrawScreen, PlayerClass player)
         {
             Console.Clear();
             Console.WriteLine(CreateScreen(boardArrayDrawScreen));
