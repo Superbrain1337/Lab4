@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Wall:Entities
+    public class Wall:Entities, ILetter
     {
         public override int X { get; set; }
         public override int Y { get; set; }
-        public override char Letter { get; set; }
+
+        public char Letter { get; set; }
 
         public int Pos { get; set; }
         public int End { get; set; }
@@ -64,7 +65,7 @@ namespace Game
 
         public void CreateRoom()
         {
-            Console.ForegroundColor = (ConsoleColor)Rnd.Next(16);
+            //Console.ForegroundColor = (ConsoleColor)(1+Rnd.Next(15));
             for (int i = 0; i < Board.GetLength(0); i++)
             {
                 for (int j = 0; j < Board.GetLength(1); j++)

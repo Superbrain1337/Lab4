@@ -53,10 +53,10 @@ namespace Game
         }
 
         //This is called each time the player moves on the board
-        public static void Plot(int x, int y, char c)
+        public static void Plot(int x, int y, Entities.Ruta c)
         {
             Console.SetCursorPosition(x, y);
-            Console.Write(c);
+            Console.Write((char)c);
         }
     }
 }

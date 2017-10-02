@@ -10,14 +10,16 @@ namespace Game
 {
     class Program
     {
-        public enum Ruta { Player = 'P', Door = 'D', Key = 'K', Wall = '#', Enemie = 'E' }
+        public enum Ruta { Player = 'P', Door = 'D', Key = 'K', Wall = '#', Enemie = 'E', Empty = ' ' }
         public static Player Player = new Player();
         public static Wall Wall = new Wall();
         public static Door Door = new Door();
         public static Key Key = new Key();
+        public static Empty Empty = new Empty();
 
         static void Main(string[] args)
         {
+            Empty.NewBoard();
             Wall.CreateRoom();
             Wall.DrawWalls();
             Door.CreateExit();
@@ -26,21 +28,25 @@ namespace Game
             Entities.Ruta[,] boardGrid = Entities.Board;
             bool loseGame = false;
             Draw.DrawScreen(boardGrid);
-            
-            int highscore = 0, playerUsedActions = 0;
+            Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player);
+
+            int highscore = 0, playerUsedActions = 0, direction;
             
             while (!loseGame)
             {
-                Player.UpdatePlayer();
-                playerUsedActions++;
                 
+                direction = Player.GetPlayerDirection();
+                playerUsedActions++;
+                Door.TryToUnlock(direction, Player.X, Player.Y);
                 Key.LookForKey();
+                Player.UpdatePlayerPosititon();
+                
                 if (Player.PrevX != Player.X || Player.PrevY != Player.Y)
                 {
-                    Draw.Plot(Player.PrevX, Player.PrevY, ' ');
-                    Draw.Plot(Player.X, Player.Y, Player.Letter);
+                    Draw.Plot(Player.PrevX, Player.PrevY, Entities.Ruta.Empty);
+                    Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player);
                 }
-                if (Player.X == 2 && Player.Y == 2)
+                if (Player.X == 2 && Player.Y == 2 || Player.Health <=0)
                 {
                     highscore = 100 - playerUsedActions;
                     loseGame = true;

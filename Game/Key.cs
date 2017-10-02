@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Key:Entities
+    public class Key:Entities, ILetter
     {
         public override int X { get; set; }
         public override int Y { get; set; }
-        public override char Letter { get; set; }
+        public char Letter { get; set; }
 
         public Key()
         {

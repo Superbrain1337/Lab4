@@ -6,42 +6,92 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Door:Entities
+    public class Door:Entities
     {
         public int Wall { get; set; }
         public int Pos { get; set; }
+
+        //variables from Entities
         public override int X { get; set; }
         public override int Y { get; set; }
-        public override char Letter { get; set; }
+        
+        //variables from ILetter
+        public char Letter { get; set; }
 
         public Door()
         {
             Letter = 'D';
         }
         
+        //Creates a Door to leave the room
         public void CreateExit()
         {
+            //Randomly decides wich wall to place the exit on
             Wall = Rnd.Next(4);
             
             if(Wall == 0)
             {
                 Pos = 1 + Rnd.Next(Board.GetLength(1) - 2);
                 Board[0, Pos] = Ruta.Door;
+                X = Pos;
+                Y = 0;
             }
             else if(Wall == 1)
             {
                 Pos = 1 + Rnd.Next(Board.GetLength(0) - 2);
                 Board[Pos, Board.GetLength(1)-1] = Ruta.Door;
+                X = Board.GetLength(1)-1;
+                Y = Pos;
             }
             else if (Wall == 2)
             {
                 Pos = 1 + Rnd.Next(Board.GetLength(1) - 2);
                 Board[Board.GetLength(0)-1, Pos] = Ruta.Door;
+                X = Pos;
+                Y = Board.GetLength(0)-1;
             }
             else
             {
                 Pos = 1 + Rnd.Next(Board.GetLength(0) - 2);
                 Board[Pos, 0] = Ruta.Door;
+                X = 0;
+                Y = Pos;
+            }
+        }
+
+        public void TryToUnlock(int direction, int currentX, int currentY)
+        {
+            if (direction == 0)
+            {
+                if (Board[currentY - 1, currentX] == Ruta.Door && NumbOfKeys > 0)
+                {
+                    NumbOfKeys--;
+                    CanMoveTo = true;
+                }
+            }
+            else if (direction == 1)
+            {
+                if (Board[currentY, currentX + 1] == Ruta.Door && NumbOfKeys > 0)
+                {
+                    NumbOfKeys--;
+                    CanMoveTo = true;
+                }
+            }
+            else if (direction == 2)
+            {
+                if (Board[currentY + 1, currentX] == Ruta.Door && NumbOfKeys > 0)
+                {
+                    NumbOfKeys--;
+                    CanMoveTo = true;
+                }
+            }
+            else
+            {
+                if (Board[currentY, currentX - 1] == Ruta.Door && NumbOfKeys > 0)
+                {
+                    NumbOfKeys--;
+                    CanMoveTo = true;
+                }
             }
         }
     }

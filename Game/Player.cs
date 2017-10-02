@@ -7,35 +7,53 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Player:Entities
+    public class Player:Entities, ILetter
     {
-        private int x;
-        private int y;
-        private int prevX = 0;
-        private int prevY = 0;
-        private char letter = 'P';
-        private ConsoleKeyInfo userMovementInput;
 
         public override int X { get; set; }
         public override int Y { get; set; }
         public int PrevX { get; set; }
         public int PrevY { get; set; }
-        public override char Letter { get; set; }
+        public char Letter { get; set; }
         public ConsoleKeyInfo UserMovementInput { get; set; }
+        public int Health { get; set; }
 
         public Player()
         {
             Letter = 'P';
             X = 25;
             Y = 18;
+            Health = 100;
             UserMovementInput = new ConsoleKeyInfo();
             Console.CursorVisible = false;
-            Board[Y, X] = Entities.Ruta.Player;
+            Board[Y, X] = Ruta.Player;
         }
 
-        public void UpdatePlayer()
+        public void UpdatePlayerPosititon()
+        {
+            if (Board[Y, X] == Ruta.Wall)
+            {
+                X = PrevX;
+                Y = PrevY;
+            }
+            else if (Board[Y, X] == Ruta.Door)
+            {
+                if (!CanMoveTo)
+                {
+                    X = PrevX;
+                    Y = PrevY;
+                }
+            }
+            else if (Board[Y, X] == Ruta.Enemie)
+            {
+                Health -= 50;
+            }
+        }
+
+        public int GetPlayerDirection()
         {
             UserMovementInput = Console.ReadKey(true);
+
             PrevX = X;
             PrevY = Y;
 
@@ -43,28 +61,22 @@ namespace Game
             {
                 case ConsoleKey.W:
                 case ConsoleKey.UpArrow:
-
-                    if (Board[Y - 1, X] != Ruta.Wall)
-                        Y--;
-                    break;
+                    Y--;
+                    return 0;
                 case ConsoleKey.S:
                 case ConsoleKey.DownArrow:
-                    if (Board[Y + 1, X] != Ruta.Wall)
-                        Y++;
-                    break;
+                    Y++;
+                    return 2;
                 case ConsoleKey.A:
                 case ConsoleKey.LeftArrow:
-                    if (Board[Y, X - 1] != Ruta.Wall)
-                        X--;
-                    break;
+                    X--;
+                    return 1;
                 case ConsoleKey.D:
                 case ConsoleKey.RightArrow:
-                    if (Board[Y, X + 1] != Ruta.Wall)
-                        X++;
-                    break;
-                default:
-                    break;
+                    X++;
+                    return 3;
             }
+            return 4;
         }
     }
 }
