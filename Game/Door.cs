@@ -58,14 +58,5 @@ namespace Game
                 Y = Pos;
             }
         }
-
-        public void TryToUnlock(int currentX, int currentY)
-        {
-            if (Board[currentY, currentX] == Ruta.Door && NumbOfKeys > 0)
-            {
-                NumbOfKeys--;
-                CanMoveTo = true;
-            }
-        }
     }
 }

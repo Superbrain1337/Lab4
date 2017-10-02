@@ -32,7 +32,7 @@ namespace Game
             R = Rnd.Next(40);
             for (int i = 0; i < R; i++)
             {
-                Console.ForegroundColor = (ConsoleColor)(Rnd.Next(15)+1);
+                Console.ForegroundColor = ConsoleColor.White;
                 Direction = Rnd.Next(100) % 2;
                 Lenght = Board.GetLength(Direction);
                 Start = 2 + Rnd.Next(Lenght - 2);
@@ -44,9 +44,6 @@ namespace Game
                     for (int j = Start; j < End; j++)
                     {
                         Board[Y, j] = Ruta.Wall;
-                        //if (Y + 1 <= lenght && entities.Board[j, Y + 1] != Rutor.Wall ) entities.Board[j, Y + 1] = Rutor.Room;
-                        //if (Y - 1 >= 0 && entities.Board[j, Y - 1] != Rutor.Wall ) entities.Board[j, Y - 1] = Rutor.Room;
-                        //if (j == end - 1) entities.Board[j + 1, Y] = Rutor.Room;
                     }
                 }
                 else
@@ -55,9 +52,6 @@ namespace Game
                     for (int j = Start; j < End; j++)
                     {
                         Board[j, X] = Ruta.Wall;
-                        //if ( X + 1 <= lenght && entities.Board[X + 1, j] != Rutor.Wall) entities.Board[j, X + 1] = Rutor.Room;
-                        //if (X - 1 >= 0 && entities.Board[X - 1, j] != Rutor.Wall ) entities.Board[j, X - 1] = Rutor.Room;
-                        //if (j == end - 1) entities.Board[X, j + 1] = Rutor.Room;
                     }
                 }
             }
@@ -65,7 +59,6 @@ namespace Game
 
         public void CreateRoom()
         {
-            //Console.ForegroundColor = (ConsoleColor)(1+Rnd.Next(15));
             for (int i = 0; i < Board.GetLength(0); i++)
             {
                 for (int j = 0; j < Board.GetLength(1); j++)

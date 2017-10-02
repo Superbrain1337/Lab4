@@ -11,6 +11,7 @@ namespace Game
         public override int X { get; set; }
         public override int Y { get; set; }
         public char Letter { get; set; }
+        public int KeyCount { get; set; } = 0;
 
         public Key()
         {
@@ -20,9 +21,13 @@ namespace Game
         {
             Y = Rnd.Next(Board.GetLength(0));
             X = Rnd.Next(Board.GetLength(1));
-            if(Board[Y,X] != Ruta.Wall)
+            while (KeyCount < 1)
             {
-                Board[Y, X] = Ruta.Key;
+                if (Board[Y, X] == Ruta.Empty)
+                {
+                    Board[Y, X] = Ruta.Key;
+                    KeyCount++;
+                }
             }
         }
 

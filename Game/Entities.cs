@@ -15,34 +15,8 @@ namespace Game
 
         public abstract int X { get; set; }
         public abstract int Y { get; set; }
-        public bool CanMoveTo { get; set; }
         public static Ruta[,] Board { get; set; } = new Ruta[40,100];
         public int NumbOfKeys { get; set; }
         public Random Rnd => rnd;
-    }
-    public class Empty:Entities, ILetter
-    {
-        public override int X { get; set; }
-        public override int Y { get; set; }
-        public char Letter { get; set; }
-
-        public Empty()
-        {
-            CanMoveTo = true;
-            Letter = ' ';
-            Board[Y, X] = Ruta.Empty;
-        }
-
-        public void NewBoard()
-        {
-            for (int i = 0; i < Board.GetLength(0); i++)
-            {
-                for (int j = 0; j < Board.GetLength(1); j++)
-                {
-                    Board[i, j] = Ruta.Empty;
-                }
-            }
-        }
-        
     }
 }

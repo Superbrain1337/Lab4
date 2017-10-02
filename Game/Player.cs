@@ -21,15 +21,15 @@ namespace Game
         public Player()
         {
             Letter = 'P';
-            X = 25;
-            Y = 18;
+            X = 50;
+            Y = 20;
             Health = 100;
             UserMovementInput = new ConsoleKeyInfo();
             Console.CursorVisible = false;
             Board[Y, X] = Ruta.Player;
         }
 
-        public void UpdatePlayerPosititon()
+        public bool UpdatePlayerPosititon()
         {
             if (Board[Y, X] == Ruta.Wall)
             {
@@ -38,16 +38,25 @@ namespace Game
             }
             else if (Board[Y, X] == Ruta.Door)
             {
-                if (!CanMoveTo)
+                if (NumbOfKeys <= 0)
                 {
                     X = PrevX;
                     Y = PrevY;
+                }
+                else
+                {
+                    return true;
                 }
             }
             else if (Board[Y, X] == Ruta.Enemie)
             {
                 Health -= 50;
             }
+            else if (Board[Y, X] == Ruta.Key)
+            {
+                NumbOfKeys++;
+            }
+            return false;
         }
 
         public void MovePlayer()

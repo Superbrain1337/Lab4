@@ -10,7 +10,6 @@ namespace Game
 {
     class Program
     {
-        public enum Ruta { Player = 'P', Door = 'D', Key = 'K', Wall = '#', Enemie = 'E', Empty = ' ' }
         public static Player Player = new Player();
         public static Wall Wall = new Wall();
         public static Door Door = new Door();
@@ -19,35 +18,50 @@ namespace Game
 
         static void Main(string[] args)
         {
+            //The first room in created 
             Empty.NewBoard();
             Wall.CreateRoom();
             Wall.DrawWalls();
             Door.CreateExit();
             Key.SpawnKey();
             
+            //The local variables is created
             Entities.Ruta[,] boardGrid = Entities.Board;
-            bool loseGame = false;
+            bool loseGame = false, roomComplete = false;
             Draw.DrawScreen(boardGrid);
             Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player);
 
-            int highscore = 0, playerUsedActions = 0;
+            int highscore = 0, playerUsedActions = 0, roomCount = 0;
             
-            while (!loseGame)
+            while (!loseGame && roomCount < 10)
             {
+                if (roomComplete)
+                {
+                    Player.X = 50;
+                    Player.Y = 20;
+                    Key.KeyCount = 0;
+                    Empty.NewBoard();
+                    Wall.CreateRoom();
+                    Wall.DrawWalls();
+                    Door.CreateExit();
+                    Key.SpawnKey();
+                    Draw.DrawScreen(boardGrid);
+                    Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player);
+                    roomComplete = false;
+                }
                 
                 Player.MovePlayer();
                 playerUsedActions++;
-                Door.TryToUnlock(Player.X, Player.Y);
-                Player.UpdatePlayerPosititon();
+                roomComplete = Player.UpdatePlayerPosititon();
                 
                 if (Player.PrevX != Player.X || Player.PrevY != Player.Y)
                 {
                     Draw.Plot(Player.PrevX, Player.PrevY, Entities.Ruta.Empty);
                     Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player);
                 }
-                if (Player.X == 2 && Player.Y == 2 || Player.Health <=0)
+                if (Player.Health <=0)
                 {
-                    highscore = 100 - playerUsedActions;
+                    highscore = 1000 - playerUsedActions;
                     loseGame = true;
                 }
             }
