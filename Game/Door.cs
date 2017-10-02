@@ -59,39 +59,12 @@ namespace Game
             }
         }
 
-        public void TryToUnlock(int direction, int currentX, int currentY)
+        public void TryToUnlock(int currentX, int currentY)
         {
-            if (direction == 0)
+            if (Board[currentY, currentX] == Ruta.Door && NumbOfKeys > 0)
             {
-                if (Board[currentY - 1, currentX] == Ruta.Door && NumbOfKeys > 0)
-                {
-                    NumbOfKeys--;
-                    CanMoveTo = true;
-                }
-            }
-            else if (direction == 1)
-            {
-                if (Board[currentY, currentX + 1] == Ruta.Door && NumbOfKeys > 0)
-                {
-                    NumbOfKeys--;
-                    CanMoveTo = true;
-                }
-            }
-            else if (direction == 2)
-            {
-                if (Board[currentY + 1, currentX] == Ruta.Door && NumbOfKeys > 0)
-                {
-                    NumbOfKeys--;
-                    CanMoveTo = true;
-                }
-            }
-            else
-            {
-                if (Board[currentY, currentX - 1] == Ruta.Door && NumbOfKeys > 0)
-                {
-                    NumbOfKeys--;
-                    CanMoveTo = true;
-                }
+                NumbOfKeys--;
+                CanMoveTo = true;
             }
         }
     }

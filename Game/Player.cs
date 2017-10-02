@@ -50,7 +50,7 @@ namespace Game
             }
         }
 
-        public int GetPlayerDirection()
+        public void MovePlayer()
         {
             UserMovementInput = Console.ReadKey(true);
 
@@ -62,21 +62,20 @@ namespace Game
                 case ConsoleKey.W:
                 case ConsoleKey.UpArrow:
                     Y--;
-                    return 0;
+                    break;
                 case ConsoleKey.S:
                 case ConsoleKey.DownArrow:
                     Y++;
-                    return 2;
+                    break;
                 case ConsoleKey.A:
                 case ConsoleKey.LeftArrow:
                     X--;
-                    return 1;
+                    break;
                 case ConsoleKey.D:
                 case ConsoleKey.RightArrow:
                     X++;
-                    return 3;
+                    break;
             }
-            return 4;
         }
     }
 }

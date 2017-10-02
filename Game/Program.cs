@@ -30,15 +30,14 @@ namespace Game
             Draw.DrawScreen(boardGrid);
             Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player);
 
-            int highscore = 0, playerUsedActions = 0, direction;
+            int highscore = 0, playerUsedActions = 0;
             
             while (!loseGame)
             {
                 
-                direction = Player.GetPlayerDirection();
+                Player.MovePlayer();
                 playerUsedActions++;
-                Door.TryToUnlock(direction, Player.X, Player.Y);
-                Key.LookForKey();
+                Door.TryToUnlock(Player.X, Player.Y);
                 Player.UpdatePlayerPosititon();
                 
                 if (Player.PrevX != Player.X || Player.PrevY != Player.Y)

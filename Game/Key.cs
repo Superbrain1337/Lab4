@@ -26,10 +26,5 @@ namespace Game
             }
         }
 
-        public void LookForKey()
-        {
-            if(Board[Y,X] == Ruta.Key) NumbOfKeys++;
-        }
-
     }
 }
