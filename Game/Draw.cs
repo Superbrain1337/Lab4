@@ -53,10 +53,12 @@ namespace Game
         }
 
         //This is called each time the player moves on the board
-        public static void Plot(int x, int y, Entities.Ruta c)
+        public static void Plot(int x, int y, string c, ConsoleColor f)
         {
             Console.SetCursorPosition(x, y);
-            Console.Write((char)c);
+            Console.ForegroundColor = f;
+            Console.Write(c);
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

@@ -21,8 +21,8 @@ namespace Game
         public Player()
         {
             Letter = 'P';
-            X = 50;
-            Y = 20;
+            X = 50; //1 + Rnd.Next(Board.GetLength(1) - 3);
+            Y = 20; //1 + Rnd.Next(Board.GetLength(0) - 3);
             Health = 100;
             UserMovementInput = new ConsoleKeyInfo();
             Console.CursorVisible = false;
@@ -50,11 +50,17 @@ namespace Game
             }
             else if (Board[Y, X] == Ruta.Enemie)
             {
+                Board[PrevY, PrevX] = Ruta.Empty;
                 Health -= 50;
             }
             else if (Board[Y, X] == Ruta.Key)
             {
+                Board[PrevY, PrevX] = Ruta.Empty;
                 NumbOfKeys++;
+            }
+            else
+            {
+                Board[PrevY, PrevX] = Ruta.Empty;
             }
             return false;
         }

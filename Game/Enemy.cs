@@ -64,11 +64,17 @@ namespace Game
             }
             X = EnemyList[1, currentEnemy];
             Y = EnemyList[0, currentEnemy];
+            Board[PrevY, PrevX] = Ruta.Empty;
         }
 
         public void UpdateEnemyPosititon(int currentEnemy)
         {
-            if (Board[Y, X] != Ruta.Empty)
+            if (Board[Y, X] == Ruta.Player)
+            {
+                EnemyList[1, currentEnemy] = 1;
+                EnemyList[0, currentEnemy] = 0;
+            }
+            else if (Board[Y, X] != Ruta.Empty)
             {
                 EnemyList[1, currentEnemy] = PrevX;
                 X = PrevX;

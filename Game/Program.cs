@@ -22,11 +22,12 @@ namespace Game
             //Local variables is created
             bool loseGame = false, roomComplete = false;
             int highscore = 0, playerUsedActions = 0, roomCount = 1;
+            Random rnd = new Random();
 
             //The first room in created 
             Empty.NewBoard();
             Wall.CreateRoom();
-            Wall.DrawWalls();
+            Wall.CreateMaze();
             Door.CreateExit();
             Key.SpawnKey();
             Enemy.CreateEnemies(roomCount);
@@ -36,24 +37,30 @@ namespace Game
             
             //Board is drawn on the Console
             Draw.DrawScreen(boardGrid);
-            Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player);
-            
+            Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player.ToString(), ConsoleColor.Green);
+            Draw.Plot(Enemy.X, Enemy.Y, Entities.Ruta.Enemie.ToString(), ConsoleColor.Red);
+
             while (!loseGame && roomCount < 10)
             {
                 if (roomComplete)
                 {
+                    highscore += (1000 - playerUsedActions) * roomCount;
                     roomCount++;
-                    Player.X = 50;
-                    Player.Y = 20;
+                    Wall.WallCount = 0;
+                    Entities.NumbOfKeys = 0;
+                    Enemy.NumberOfEnemies = 0;
+                    Player.X = 1 + rnd.Next(boardGrid.GetLength(1)-2);
+                    Player.Y = 1 + rnd.Next(boardGrid.GetLength(0)-2);
                     Key.KeyCount = 0;
                     Empty.NewBoard();
                     Wall.CreateRoom();
-                    Wall.DrawWalls();
+                    Wall.CreateMaze();
                     Door.CreateExit();
                     Key.SpawnKey();
                     Enemy.CreateEnemies(roomCount);
                     Draw.DrawScreen(boardGrid);
-                    Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player);
+                    Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player.ToString(), ConsoleColor.Green);
+                    Draw.Plot(Enemy.X, Enemy.Y, Entities.Ruta.Enemie.ToString(), ConsoleColor.Red);
                     roomComplete = false;
                 }
                 
@@ -63,8 +70,8 @@ namespace Game
                 
                 if (Player.PrevX != Player.X || Player.PrevY != Player.Y)
                 {
-                    Draw.Plot(Player.PrevX, Player.PrevY, Entities.Ruta.Empty);
-                    Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player);
+                    Draw.Plot(Player.PrevX, Player.PrevY, Entities.Board[Player.PrevY, Player.PrevX].ToString(), ConsoleColor.Black);
+                    Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player.ToString(), ConsoleColor.Green);
                 }
 
                 for (int i = 0; i < roomCount * 2; i++)
@@ -73,14 +80,17 @@ namespace Game
                     Enemy.UpdateEnemyPosititon(i);
                     if (Enemy.PrevX != Enemy.X || Enemy.PrevY != Enemy.Y)
                     {
-                        Draw.Plot(Enemy.PrevX, Enemy.PrevY, Entities.Ruta.Empty);
-                        Draw.Plot(Enemy.X, Enemy.Y, Entities.Ruta.Enemie);
+                        Draw.Plot(Enemy.PrevX, Enemy.PrevY, Entities.Ruta.Empty.ToString(), ConsoleColor.Black);
+                        if (Enemy.PrevX == Player.X && Enemy.PrevY == Player.Y)
+                        {
+                            Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player.ToString(), ConsoleColor.Green);
+                        }
+                        Draw.Plot(Enemy.X, Enemy.Y, Entities.Ruta.Enemie.ToString(), ConsoleColor.Red);
                     }
                 }
 
                 if (Player.Health <=0)
                 {
-                    highscore = 1000 - playerUsedActions;
                     loseGame = true;
                 }
             }

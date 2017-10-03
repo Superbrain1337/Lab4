@@ -16,7 +16,7 @@ namespace Game
         public abstract int X { get; set; }
         public abstract int Y { get; set; }
         public static Ruta[,] Board { get; set; } = new Ruta[40,100];
-        public int NumbOfKeys { get; set; }
+        public static int NumbOfKeys { get; set; }
         public Random Rnd => rnd;
     }
 }

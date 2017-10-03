@@ -19,8 +19,8 @@ namespace Game
         }
         public void SpawnKey()
         {
-            Y = Rnd.Next(Board.GetLength(0));
-            X = Rnd.Next(Board.GetLength(1));
+            Y = 2 + Rnd.Next(Board.GetLength(0) - 4);
+            X = 5 + Rnd.Next(Board.GetLength(1) - 10);
             while (KeyCount < 1)
             {
                 if (Board[Y, X] == Ruta.Empty)
