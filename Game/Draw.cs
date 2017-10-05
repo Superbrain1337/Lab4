@@ -36,15 +36,21 @@ namespace Game
             }
 
             //All the rows are made into a string
-            for (int i = 0; i < boardArrayLine.Length; i++)     
+            foreach (string t in boardArrayLine)
             {
-                output += boardArrayLine[i] + "\n";
+                output += t + "\n";
             }
 
             //adds information for the player into the output
-            output += "\n" + controls;
+            output += "\n";
 
             return output;
+        }
+
+        public static void DrawControls(Entities.Ruta[,] boardArray, int highscore)
+        {
+            Console.SetCursorPosition(0, boardArray.GetLength(0));
+            Console.WriteLine($"{controls}, Highscore: {highscore} \n");
         }
 
         public static void DrawGameOver(int highscore)
@@ -53,11 +59,11 @@ namespace Game
         }
 
         //This is called each time the player moves on the board
-        public static void Plot(int x, int y, string c, ConsoleColor f)
+        public static void Plot(int x, int y, Entities.Ruta c, ConsoleColor f)
         {
             Console.SetCursorPosition(x, y);
             Console.ForegroundColor = f;
-            Console.Write(c);
+            Console.Write((char)c);
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

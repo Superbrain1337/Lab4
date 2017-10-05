@@ -11,7 +11,7 @@ namespace Game
         public override int X { get; set; }
         public override int Y { get; set; }
         public char Letter { get; set; }
-        public int KeyCount { get; set; } = 0;
+        public int KeyCount { get; set; }
 
         public Key()
         {
