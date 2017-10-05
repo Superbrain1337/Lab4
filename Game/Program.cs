@@ -93,7 +93,7 @@ namespace Game
                 for (int i = 0; i < roomCount * 2; i++)
                 {
                     Enemy.MoveEnemy(i, Player.X, Player.Y);
-                    Enemy.UpdateEnemyPosititon(i);
+                    Player.Health -= Enemy.UpdateEnemyPosititon(i);
                     if (Enemy.PrevX != Enemy.X || Enemy.PrevY != Enemy.Y)
                     {
                         Draw.Plot(Enemy.PrevX, Enemy.PrevY, Entities.Ruta.Empty, ConsoleColor.Black);

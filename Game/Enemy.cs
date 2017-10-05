@@ -27,8 +27,8 @@ namespace Game
         {
             while (NumberOfEnemies < 2 * difficulty)
             {
-                Y = Rnd.Next(Board.GetLength(0));
-                X = Rnd.Next(Board.GetLength(1));
+                Y = 1 + Rnd.Next(Board.GetLength(0) - 1);
+                X = 1 + Rnd.Next(Board.GetLength(1) - 1);
                 if (Board[Y, X] == Ruta.Empty)
                 {
                     Board[Y, X] = Ruta.Enemie;
@@ -118,14 +118,15 @@ namespace Game
             Board[PrevY, PrevX] = Ruta.Empty;
         }
 
-        public void UpdateEnemyPosititon(int currentEnemy)
+        public int UpdateEnemyPosititon(int currentEnemy)
         {
             X = EnemyList[1, currentEnemy];
             Y = EnemyList[0, currentEnemy];
             if (Board[Y, X] == Ruta.Player)
             {
-                EnemyList[1, currentEnemy] = 1;
-                EnemyList[0, currentEnemy] = 1;
+                EnemyList[1, currentEnemy] = 0;
+                EnemyList[0, currentEnemy] = 0;
+                return 50;
             }
             else if (Board[Y, X] != Ruta.Empty)
             {
@@ -135,6 +136,7 @@ namespace Game
                 Y = PrevY;
             }
             Board[Y, X] = Ruta.Enemie;
+            return 0;
         }
     }
 }

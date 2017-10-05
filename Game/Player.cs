@@ -24,7 +24,7 @@ namespace Game
             Letter = 'P';
             X = 50; //1 + Rnd.Next(Board.GetLength(1) - 3);
             Y = 20; //1 + Rnd.Next(Board.GetLength(0) - 3);
-            Health = 100;
+            Health = 1000;
             UserMovementInput = new ConsoleKeyInfo();
             Console.CursorVisible = false;
             Board[Y, X] = Ruta.Player;
