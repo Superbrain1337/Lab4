@@ -47,10 +47,10 @@ namespace Game
             return output;
         }
 
-        public static void DrawControls(Entities.Ruta[,] boardArray, int highscore)
+        public static void DrawControls(Entities.Ruta[,] boardArray, int highscore, int playerHealth)
         {
             Console.SetCursorPosition(0, boardArray.GetLength(0));
-            Console.WriteLine($"{controls}, Highscore: {highscore} \n");
+            Console.WriteLine($"{controls}, Highscore: {highscore}, Health: {playerHealth} \n");
         }
 
         public static void DrawGameOver(int highscore)

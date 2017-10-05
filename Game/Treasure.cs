@@ -42,7 +42,7 @@ namespace Game
                 if (playerX == TreasureList[0, i] && playerY == TreasureList[1, i] && TreasureList[2, i] != 1)
                 {
                     TreasureList[2, i] = 1;
-                    return 100 * i;
+                    return 100 * (i+1);
                 }
             }
             return 0;

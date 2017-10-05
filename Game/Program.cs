@@ -41,7 +41,7 @@ namespace Game
             
             //Board is drawn on the Console
             Draw.DrawScreen(boardGrid);
-            Draw.DrawControls(boardGrid, highscore);
+            Draw.DrawControls(boardGrid, highscore, Player.Health);
             for (int i = 0; i < Treasure.TreasureList.GetLength(1); i++)
             {
                 Draw.Plot(Treasure.TreasureList[0, i], Treasure.TreasureList[1, i], Entities.Ruta.Treasure, (ConsoleColor)Treasure.TreasureList[3, i]);
@@ -69,7 +69,7 @@ namespace Game
                     Key.SpawnKey();
                     Enemy.CreateEnemies(roomCount);
                     Draw.DrawScreen(boardGrid);
-                    Draw.DrawControls(boardGrid, highscore);
+                    Draw.DrawControls(boardGrid, highscore, Player.Health);
                     for (int i = 0; i < Treasure.TreasureList.GetLength(1); i++)
                     {
                         Draw.Plot(Treasure.TreasureList[0, i], Treasure.TreasureList[1,i], Entities.Ruta.Treasure, (ConsoleColor) Treasure.TreasureList[3,i]);
@@ -92,7 +92,7 @@ namespace Game
 
                 for (int i = 0; i < roomCount * 2; i++)
                 {
-                    Enemy.MoveEnemy(i);
+                    Enemy.MoveEnemy(i, Player.X, Player.Y);
                     Enemy.UpdateEnemyPosititon(i);
                     if (Enemy.PrevX != Enemy.X || Enemy.PrevY != Enemy.Y)
                     {
@@ -101,9 +101,14 @@ namespace Game
                         {
                             Draw.Plot(Player.X, Player.Y, Entities.Ruta.Player, ConsoleColor.Green);
                         }
-                        Draw.Plot(Enemy.X, Enemy.Y, Entities.Ruta.Enemie, ConsoleColor.Red);
+                        else
+                        {
+                            Draw.Plot(Enemy.X, Enemy.Y, Entities.Ruta.Enemie, ConsoleColor.Red);
+                        }
                     }
                 }
+
+                Draw.DrawControls(boardGrid, highscore, Player.Health);
                 Console.SetCursorPosition(0, boardGrid.GetLength(0) + 1);
                 Console.WriteLine(playerUsedActions);
 

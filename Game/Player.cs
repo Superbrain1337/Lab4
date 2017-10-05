@@ -9,6 +9,7 @@ namespace Game
 {
     public class Player:Entities, ILetter
     {
+        
 
         public override int X { get; set; }
         public override int Y { get; set; }
@@ -31,6 +32,7 @@ namespace Game
 
         public bool UpdatePlayerPosititon()
         {
+            Board[PrevY, PrevX] = Ruta.Empty;
             if (Board[Y, X] == Ruta.Wall)
             {
                 X = PrevX;
@@ -45,23 +47,20 @@ namespace Game
                 }
                 else
                 {
+                    Board[Y, X] = Ruta.Player;
                     return true;
                 }
             }
             else if (Board[Y, X] == Ruta.Enemie)
             {
-                Board[PrevY, PrevX] = Ruta.Empty;
                 Health -= 50;
             }
             else if (Board[Y, X] == Ruta.Key)
             {
-                Board[PrevY, PrevX] = Ruta.Empty;
                 NumbOfKeys++;
             }
-            else
-            {
-                Board[PrevY, PrevX] = Ruta.Empty;
-            }
+            
+            Board[Y, X] = Ruta.Player;
             return false;
         }
 
@@ -89,6 +88,22 @@ namespace Game
                 case ConsoleKey.D:
                 case ConsoleKey.RightArrow:
                     X++;
+                    break;
+                case ConsoleKey.Q:
+                    X--;
+                    Y--;
+                    break;
+                case ConsoleKey.E:
+                    X++;
+                    Y--;
+                    break;
+                case ConsoleKey.Z:
+                    X--;
+                    Y++;
+                    break;
+                case ConsoleKey.X:
+                    X++;
+                    Y++;
                     break;
             }
         }

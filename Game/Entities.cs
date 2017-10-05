@@ -12,11 +12,15 @@ namespace Game
     {
         public enum Ruta { Player = 'P', Door = 'D', Key = 'K', Wall = '#', Enemie = 'E', Empty = ' ', Treasure = 'T', Bomb = 'B' }
         private Random rnd = new Random();
+        private const int BoardX = 100;
+        private const int BoardY = 40;
 
         public abstract int X { get; set; }
         public abstract int Y { get; set; }
-        public static Ruta[,] Board { get; set; } = new Ruta[40,100];
+        public static Ruta[,] Board { get; set; } = new Ruta[BoardY,BoardX];
         public static int NumbOfKeys { get; set; }
         public Random Rnd => rnd;
+        public bool[,] IsVisible { get; set; } = new bool[BoardY - 2, BoardX - 2];
+        //public static Entities[,] Board { get; set; } = new Entities[BoardY,BoardX];
     }
 }

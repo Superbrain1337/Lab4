@@ -39,28 +39,79 @@ namespace Game
             }
         }
 
-        public void MoveEnemy(int currentEnemy)
+        public void MoveEnemy(int currentEnemy, int playerX, int playerY)
         {
             PrevY = EnemyList[0, currentEnemy];
             PrevX = EnemyList[1, currentEnemy];
+            if (EnemyList[0, currentEnemy] != 0 && EnemyList[1, currentEnemy] != 0)
+            {
+                if (EnemyList[1, currentEnemy] - playerX <= 5 && EnemyList[1, currentEnemy] - playerX >= -5 &&
+                    EnemyList[0, currentEnemy] - playerY <= 5 && EnemyList[0, currentEnemy] - playerY >= -5)
+                {
+                    if (EnemyList[0, currentEnemy] == playerY)
+                    {
+                        if (EnemyList[1, currentEnemy] < playerX)
+                        {
+                            EnemyList[1, currentEnemy]++;
+                        }
+                        else if (EnemyList[1, currentEnemy] > playerX)
+                        {
+                            EnemyList[1, currentEnemy]--;
+                        }
+                    }
+                    else if (EnemyList[1, currentEnemy] == playerX)
+                    {
+                        if (EnemyList[0, currentEnemy] < playerY)
+                        {
+                            EnemyList[0, currentEnemy]++;
+                        }
+                        else if (EnemyList[0, currentEnemy] > playerY)
+                        {
+                            EnemyList[0, currentEnemy]--;
+                        }
+                    }
+                    else if (EnemyList[1, currentEnemy] < playerX && EnemyList[0, currentEnemy] < playerY)
+                    {
+                        EnemyList[1, currentEnemy]++;
+                        EnemyList[0, currentEnemy]++;
+                    }
+                    else if (EnemyList[1, currentEnemy] < playerX && EnemyList[0, currentEnemy] > playerY)
+                    {
+                        EnemyList[1, currentEnemy]++;
+                        EnemyList[0, currentEnemy]--;
+                    }
+                    else if (EnemyList[1, currentEnemy] > playerX && EnemyList[0, currentEnemy] < playerY)
+                    {
+                        EnemyList[1, currentEnemy]--;
+                        EnemyList[0, currentEnemy]++;
+                    }
+                    else
+                    {
+                        EnemyList[1, currentEnemy]--;
+                        EnemyList[0, currentEnemy]--;
+                    }
+                }
+                else
+                {
+                    WalkDirection = Rnd.Next(4);
 
-            WalkDirection = Rnd.Next(4);
-
-            if (WalkDirection == 0)
-            {
-                EnemyList[1, currentEnemy]--;
-            }
-            else if (WalkDirection == 1)
-            {
-                EnemyList[0, currentEnemy]++;
-            }
-            else if (WalkDirection == 2)
-            {
-                EnemyList[1, currentEnemy]++;
-            }
-            else
-            {
-                EnemyList[0, currentEnemy]--;
+                    if (WalkDirection == 0)
+                    {
+                        EnemyList[1, currentEnemy]--;
+                    }
+                    else if (WalkDirection == 1)
+                    {
+                        EnemyList[0, currentEnemy]++;
+                    }
+                    else if (WalkDirection == 2)
+                    {
+                        EnemyList[1, currentEnemy]++;
+                    }
+                    else
+                    {
+                        EnemyList[0, currentEnemy]--;
+                    }
+                }
             }
             X = EnemyList[1, currentEnemy];
             Y = EnemyList[0, currentEnemy];
@@ -69,10 +120,12 @@ namespace Game
 
         public void UpdateEnemyPosititon(int currentEnemy)
         {
+            X = EnemyList[1, currentEnemy];
+            Y = EnemyList[0, currentEnemy];
             if (Board[Y, X] == Ruta.Player)
             {
                 EnemyList[1, currentEnemy] = 1;
-                EnemyList[0, currentEnemy] = 0;
+                EnemyList[0, currentEnemy] = 1;
             }
             else if (Board[Y, X] != Ruta.Empty)
             {
@@ -81,6 +134,7 @@ namespace Game
                 EnemyList[0, currentEnemy] = PrevY;
                 Y = PrevY;
             }
+            Board[Y, X] = Ruta.Enemie;
         }
     }
 }
