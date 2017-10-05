@@ -9,46 +9,48 @@ namespace Game
 {
     public class Draw
     {
-        public static PlayerClass player = new PlayerClass();
-        public static EnemyClass enemy = new EnemyClass();
-        public static WallClass wall = new WallClass();
-        public static DoorClass door = new DoorClass();
-        public static KeyClass key = new KeyClass();
-        static string controls = $" {player.Letter}= Player, {enemy.Letter} = Enemy, {wall.Letter} = Wall, {door.Letter} = Door, {key.Letter} = Key";
+
+        static string controls = $"{Program.Player.Letter} = Player, E = Enemy, # = Wall, D = Door, K = Key";
 
         //Draws what CreateScreen set as output
-        public static void DrawScreen(char[,] boardArrayDrawScreen, PlayerClass player)
+        public static void DrawScreen(Entities.Ruta[,] boardArray)
         {
             Console.Clear();
-            Console.WriteLine(CreateScreen(boardArrayDrawScreen));
+            
+            Console.WriteLine(CreateScreen(boardArray));
         }
 
         //Sets what to be printed in DrawScreen
-        private static string CreateScreen(char[,] boardArrayCreateScreen)
+        public static string CreateScreen(Entities.Ruta[,] boardArray)
         {
-            int debug = boardArrayCreateScreen.GetLength(0);
-            string[] boardArrayLine = new string[debug];
+            string[] boardArrayLine = new string[boardArray.GetLength(0)];
             string output = "";
 
             //Loops thru the boardArray placing all collums of the first row, secon row and so forth in a string
-            for (int i = 0; i < boardArrayCreateScreen.GetLength(0); i++)
+            for (int i = 0; i < boardArray.GetLength(0); i++)
             {
-                for (int j = 0; j < boardArrayCreateScreen.GetLength(1); j++)
+                for (int j = 0; j < boardArray.GetLength(1); j++)
                 {
-                  boardArrayLine[i] += boardArrayCreateScreen[i, j];
+                  boardArrayLine[i] += (char)boardArray[i, j];
                 }
             }
 
             //All the rows are made into a string
-            for (int i = 0; i < boardArrayLine.Length; i++)     
+            foreach (string t in boardArrayLine)
             {
-                output += boardArrayLine[i] + "\n";
+                output += t + "\n";
             }
 
             //adds information for the player into the output
-            output += "\n" + controls;
+            output += "\n";
 
             return output;
+        }
+
+        public static void DrawControls(Entities.Ruta[,] boardArray, int highscore, int playerHealth)
+        {
+            Console.SetCursorPosition(0, boardArray.GetLength(0));
+            Console.WriteLine($"{controls}, Highscore: {highscore}, Health: {playerHealth} \n");
         }
 
         public static void DrawGameOver(int highscore)
@@ -57,10 +59,12 @@ namespace Game
         }
 
         //This is called each time the player moves on the board
-        public static void Plot(int x, int y, char c)
+        public static void Plot(int x, int y, Entities.Ruta c, ConsoleColor f)
         {
             Console.SetCursorPosition(x, y);
-            Console.Write(c);
+            Console.ForegroundColor = f;
+            Console.Write((char)c);
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
