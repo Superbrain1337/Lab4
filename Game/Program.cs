@@ -9,6 +9,8 @@ using System.Timers;
 namespace Game
 {
     //Samuel 31466
+    //Oscar 27548
+    //Fredrik 30350
     class Program
     {
         public static Player Player = new Player();
