@@ -15,13 +15,6 @@ namespace Game
         public override int X { get; set; }
         public override int Y { get; set; }
         
-        //variables from ILetter
-        public char Letter { get; set; }
-
-        public Door()
-        {
-            Letter = 'D';
-        }
         
         //Creates a Door to leave the room
         public void CreateExit()

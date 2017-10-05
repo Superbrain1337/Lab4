@@ -8,6 +8,7 @@ using System.Timers;
 
 namespace Game
 {
+    //Samuel 31466
     class Program
     {
         public static Player Player = new Player();
@@ -25,7 +26,7 @@ namespace Game
             int highscore = 0, playerUsedActions = 0, roomCount = 1;
             Random rnd = new Random();
 
-            //The first room in created 
+            //The first room is created 
             Empty.NewBoard();
             Wall.CreateRoom();
             Wall.CreateMaze();
@@ -33,10 +34,8 @@ namespace Game
             Key.SpawnKey();
             Treasure.GenerateTreasures();
             Enemy.CreateEnemies(roomCount);
-            
 
-            
-            //Board is created
+            //The board is created gets its values
             Entities.Ruta[,] boardGrid = Entities.Board;
             
             //Board is drawn on the Console
@@ -51,7 +50,7 @@ namespace Game
 
             while (!loseGame && roomCount < 10)
             {
-                if (roomComplete)
+                if (roomComplete)    //Resets some values and creates a new random room but with more enemies
                 {
                     highscore += (1000 - playerUsedActions) * roomCount;
                     playerUsedActions = 0;

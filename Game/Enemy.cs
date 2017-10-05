@@ -6,26 +6,24 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Enemy:Entities, ILetter
+    class Enemy:Entities
     {
         public override int X { get; set; }
         public override int Y { get; set; }
         public int PrevX { get; set; }
         public int PrevY { get; set; }
-        public char Letter { get; set; }
         public int NumberOfEnemies { get; set; }
         public int[,] EnemyList { get; set; }
         public int WalkDirection { get; set; }
 
-        public Enemy()
+        public Enemy()  //A new list of enemies is created
         {
-            Letter = 'E';
             EnemyList = new int[2,20];
         }
 
         public void CreateEnemies(int difficulty)
         {
-            while (NumberOfEnemies < 2 * difficulty)
+            while (NumberOfEnemies < 2 * difficulty)    //Enemies are added to the board and the enemyList
             {
                 Y = 1 + Rnd.Next(Board.GetLength(0) - 1);
                 X = 1 + Rnd.Next(Board.GetLength(1) - 1);
@@ -39,10 +37,10 @@ namespace Game
             }
         }
 
-        public void MoveEnemy(int currentEnemy, int playerX, int playerY)
-        {
+        public void MoveEnemy(int currentEnemy, int playerX, int playerY)   //The enemies are moved in a rondom direction
+        {                                                                   //If they are close to to player they moves towards him/her
             PrevY = EnemyList[0, currentEnemy];
-            PrevX = EnemyList[1, currentEnemy];
+            PrevX = EnemyList[1, currentEnemy];     
             if (EnemyList[0, currentEnemy] != 0 && EnemyList[1, currentEnemy] != 0)
             {
                 if (EnemyList[1, currentEnemy] - playerX <= 5 && EnemyList[1, currentEnemy] - playerX >= -5 &&
@@ -92,7 +90,7 @@ namespace Game
                     }
                 }
                 else
-                {
+                {               //The random direction part
                     WalkDirection = Rnd.Next(4);
 
                     if (WalkDirection == 0)
@@ -118,7 +116,7 @@ namespace Game
             Board[PrevY, PrevX] = Ruta.Empty;
         }
 
-        public int UpdateEnemyPosititon(int currentEnemy)
+        public int UpdateEnemyPosititon(int currentEnemy)   //Checks if the enemy is in an ok position or it is reset to its previus one
         {
             X = EnemyList[1, currentEnemy];
             Y = EnemyList[0, currentEnemy];
@@ -128,7 +126,7 @@ namespace Game
                 EnemyList[0, currentEnemy] = 0;
                 return 50;
             }
-            else if (Board[Y, X] != Ruta.Empty)
+            if (Board[Y, X] != Ruta.Empty) 
             {
                 EnemyList[1, currentEnemy] = PrevX;
                 X = PrevX;

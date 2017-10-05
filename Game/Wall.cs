@@ -6,25 +6,17 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public class Wall:Entities, ILetter
+    public class Wall:Entities
     {
         public override int X { get; set; }
         public override int Y { get; set; }
 
-        public char Letter { get; set; }
-
         public int Pos { get; set; }
-        public int Lenght { get; set; }
         public int Direction { get; set; }
         public int WallCount { get; set; }
         private int currentWallCount;
         private int drawnWalls;
         
-
-        public Wall()
-        {
-            Letter = '#';
-        }
         
         //Creates a new empty room
         public void CreateRoom()
@@ -41,13 +33,11 @@ namespace Game
             }
         }
 
-        public void CreateMaze()
+        public void CreateMaze()    //Creates walls to make a sort of maze
         {
-            //Y = 6 + Rnd.Next(Board.GetLength(0)-12);
-            //X = 0;
             Board[2, 2] = Ruta.Wall;
             Board[Board.GetLength(0) - 3, 2] = Ruta.Wall;
-            Board[2, Board.GetLength(1) - 3] = Ruta.Wall;
+            Board[2, Board.GetLength(1) - 3] = Ruta.Wall;       //The start corners are placed
             Board[Board.GetLength(0) - 3, Board.GetLength(1) - 3] = Ruta.Wall;
             Direction = 0;
             WallCount = 3;
@@ -62,7 +52,7 @@ namespace Game
                     {
                         if (Board[j, k] == Ruta.Wall)
                         {
-                            if (currentWallCount == Pos)
+                            if (currentWallCount == Pos)           //Sets a random piece of wall to start from
                             {
                                 Y = j;
                                 X = k;
@@ -72,10 +62,9 @@ namespace Game
                     }
                 }
 
-                switch (Direction)
+                switch (Direction)              //Draws a wall in a random direction but never creating a closed room
                 {
                     case 0:
-                        //Lenght = 5 + Rnd.Next(Board.GetLength(1) / 2);
                         if (X < Board.GetLength(1)-2 && X > 1)
                         {
                             while (Board[Y, X + 1] != Ruta.Wall && Board[Y - 1, X + 1] != Ruta.Wall && Board[Y + 1, X + 1] != Ruta.Wall)
@@ -88,7 +77,6 @@ namespace Game
                         }
                         break;
                     case 1:
-                        //Lenght = 2 + Rnd.Next(Board.GetLength(0) / 2);
                         if (Y < Board.GetLength(0) - 2 && Y > 1)
                         {
                             while (Board[Y + 1, X] != Ruta.Wall && Board[Y + 1, X + 1] != Ruta.Wall && Board[Y + 1, X - 1] != Ruta.Wall)
@@ -101,7 +89,6 @@ namespace Game
                         }
                         break;
                     case 2:
-                        //Lenght = 5 + Rnd.Next(Board.GetLength(1) / 2);
                         if (X < Board.GetLength(1) - 2 && X > 1)
                         {
                             while (Board[Y, X - 1] != Ruta.Wall && Board[Y - 1, X - 1] != Ruta.Wall && Board[Y + 1, X - 1] != Ruta.Wall)
@@ -114,7 +101,6 @@ namespace Game
                         }
                         break;
                     case 3:
-                        //Lenght = 2 + Rnd.Next(Board.GetLength(0) / 2);
                         if (Y < Board.GetLength(0) - 2 && Y > 1)
                         {
                             while (Board[Y - 1, X] != Ruta.Wall && Board[Y - 1, X + 1] != Ruta.Wall && Board[Y + 1, X - 1] != Ruta.Wall)
@@ -132,7 +118,7 @@ namespace Game
             }
         }
 
-
+        //The old DrawWalls() function
 
         /*
         public void DrawWalls()

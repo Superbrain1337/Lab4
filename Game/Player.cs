@@ -7,30 +7,27 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public class Player:Entities, ILetter
+    public class Player:Entities
     {
         
-
         public override int X { get; set; }
         public override int Y { get; set; }
         public int PrevX { get; set; }
         public int PrevY { get; set; }
-        public char Letter { get; set; }
         public ConsoleKeyInfo UserMovementInput { get; set; }
         public int Health { get; set; }
 
-        public Player()
+        public Player()     //Sets the start values for the player
         {
-            Letter = 'P';
-            X = 50; //1 + Rnd.Next(Board.GetLength(1) - 3);
-            Y = 20; //1 + Rnd.Next(Board.GetLength(0) - 3);
+            X = 50; 
+            Y = 20; 
             Health = 1000;
             UserMovementInput = new ConsoleKeyInfo();
             Console.CursorVisible = false;
             Board[Y, X] = Ruta.Player;
         }
 
-        public bool UpdatePlayerPosititon()
+        public bool UpdatePlayerPosititon() //Checks the player position and resets it to the previus location if nessesary
         {
             Board[PrevY, PrevX] = Ruta.Empty;
             if (Board[Y, X] == Ruta.Wall)
@@ -64,7 +61,7 @@ namespace Game
             return false;
         }
 
-        public void MovePlayer()
+        public void MovePlayer()    //Moves the player in the diretion that is pressed
         {
             UserMovementInput = Console.ReadKey(true);
 

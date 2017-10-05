@@ -47,7 +47,7 @@
     <Compile Include="Empty.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Entities.cs" />
-    <Compile Include="ILetter.cs" />
+    <Compile Include="ICoordinates.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

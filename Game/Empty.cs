@@ -6,19 +6,13 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public class Empty:Entities, ILetter
+    public class Empty:Entities
     {
         public override int X { get; set; }
         public override int Y { get; set; }
-        public char Letter { get; set; }
+        
 
-        public Empty()
-        {
-            Letter = ' ';
-            Board[Y, X] = Ruta.Empty;
-        }
-
-        public void NewBoard()
+        public void NewBoard()  //The board is set to a new empty board.
         {
             for (int i = 0; i < Board.GetLength(0); i++)
             {

@@ -10,7 +10,7 @@ namespace Game
     public class Draw
     {
 
-        static string controls = $"{Program.Player.Letter} = Player, E = Enemy, # = Wall, D = Door, K = Key";
+        static string controls = "P = Player, E = Enemy, # = Wall, D = Door, K = Key, B = Bomb";
 
         //Draws what CreateScreen set as output
         public static void DrawScreen(Entities.Ruta[,] boardArray)
@@ -58,7 +58,7 @@ namespace Game
             Console.WriteLine($"Game Over! You got the score: {highscore}");
         }
 
-        //This is called each time the player moves on the board
+        //This is called each time the player or the enemies moves on the board. Also sets the position for the treasures
         public static void Plot(int x, int y, Entities.Ruta c, ConsoleColor f)
         {
             Console.SetCursorPosition(x, y);

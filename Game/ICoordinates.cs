@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    interface ILetter
+    interface ICoordinates
     {
-        char Letter { get; set; }
+        int X { get; set; }
+        int Y { get; set; }
     }
 }

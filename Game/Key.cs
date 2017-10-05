@@ -6,18 +6,13 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public class Key:Entities, ILetter
+    public class Key:Entities
     {
         public override int X { get; set; }
         public override int Y { get; set; }
-        public char Letter { get; set; }
         public int KeyCount { get; set; }
-
-        public Key()
-        {
-            Letter = 'K';
-        }
-        public void SpawnKey()
+        
+        public void SpawnKey()  //A new key is spawned somewhere on the board
         {
             while (KeyCount < 1)
             {

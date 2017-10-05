@@ -6,22 +6,19 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Treasure:Entities, ILetter
+    class Treasure:Entities
     {
         public override int X { get; set; }
         public override int Y { get; set; }
 
-        public char Letter { get; set; }
-
         public int[,] TreasureList { get; set; }
 
-        public Treasure()
+        public Treasure()   //Generates a list of Treasures
         {
-            Letter = 'T';
             TreasureList = new int[5,5];
         }
 
-        public void GenerateTreasures()
+        public void GenerateTreasures()     //The treasures a placed on the board
         {
             for (int i = 0; i < 5; i++)
             {
@@ -30,8 +27,8 @@ namespace Game
                 Board[Y, X] = Ruta.Treasure;
                 TreasureList[0, i] = X;
                 TreasureList[1, i] = Y;
-                TreasureList[2, i] = 0;
-                TreasureList[3, i] = 5 + i;
+                TreasureList[2, i] = 0;     //0 or 1 wether it has been picked up by te player
+                TreasureList[3, i] = 5 + i; //THe amount of points the player gets from the treasure
             }
         }
 
