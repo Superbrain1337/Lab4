@@ -10,18 +10,18 @@ namespace Game
     public class Draw
     {
 
-        static string controls = "P = Player, E = Enemy, # = Wall, D = Door, K = Key, B = Bomb";
+        static string controls = "P = Player, E = Enemy, # = Wall, D = Door, K = Key, B = Bomb, T = Treasure, A = Ammo";
 
         //Draws what CreateScreen set as output
-        public static void DrawScreen(Entities.Ruta[,] boardArray)
+        public static void DrawScreen(Entities.Ruta[,] boardArray, bool[,] visibilityBoard)
         {
             Console.Clear();
-            
-            Console.WriteLine(CreateScreen(boardArray));
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine(CreateScreen(boardArray, visibilityBoard));
         }
 
         //Sets what to be printed in DrawScreen
-        public static string CreateScreen(Entities.Ruta[,] boardArray)
+        public static string CreateScreen(Entities.Ruta[,] boardArray, bool[,] visibilityBoard)
         {
             string[] boardArrayLine = new string[boardArray.GetLength(0)];
             string output = "";
@@ -31,7 +31,14 @@ namespace Game
             {
                 for (int j = 0; j < boardArray.GetLength(1); j++)
                 {
-                  boardArrayLine[i] += (char)boardArray[i, j];
+                    if (visibilityBoard[i, j])
+                    {
+                        boardArrayLine[i] += (char)boardArray[i, j];
+                    }
+                    else
+                    {
+                        boardArrayLine[i] += " ";
+                    }
                 }
             }
 
@@ -47,10 +54,10 @@ namespace Game
             return output;
         }
 
-        public static void DrawControls(Entities.Ruta[,] boardArray, int highscore, int playerHealth)
+        public static void DrawControls(Entities.Ruta[,] boardArray, int highscore, int playerHealth, int bombCount, int ammo)
         {
             Console.SetCursorPosition(0, boardArray.GetLength(0));
-            Console.WriteLine($"{controls}, Highscore: {highscore}, Health: {playerHealth} \n");
+            Console.WriteLine($"{controls} \nHighscore: {highscore}, Health: {playerHealth} Bombs: {bombCount} Ammo: {ammo}\n");
         }
 
         public static void DrawGameOver(int highscore)
@@ -61,6 +68,7 @@ namespace Game
         //This is called each time the player or the enemies moves on the board. Also sets the position for the treasures
         public static void Plot(int x, int y, Entities.Ruta c, ConsoleColor f)
         {
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.SetCursorPosition(x, y);
             Console.ForegroundColor = f;
             Console.Write((char)c);

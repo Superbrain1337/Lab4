@@ -20,15 +20,20 @@ namespace Game
 
         public void GenerateTreasures()     //The treasures a placed on the board
         {
-            for (int i = 0; i < 5; i++)
+            int i = 0;
+            while (i < 5)
             {
                 X = 5 + Rnd.Next(Board.GetLength(1) - 6);
                 Y = 2 + Rnd.Next(Board.GetLength(0) - 3);
-                Board[Y, X] = Ruta.Treasure;
-                TreasureList[0, i] = X;
-                TreasureList[1, i] = Y;
-                TreasureList[2, i] = 0;     //0 or 1 wether it has been picked up by te player
-                TreasureList[3, i] = 5 + i; //THe amount of points the player gets from the treasure
+                if (Board[Y, X] == Ruta.Empty)
+                {
+                    Board[Y, X] = Ruta.Treasure;
+                    TreasureList[0, i] = X;
+                    TreasureList[1, i] = Y;
+                    TreasureList[2, i] = 0; //0 or 1 wether it has been picked up by te player
+                    TreasureList[3, i] = 5 + i; //THe amount of points the player gets from the treasure
+                    i++;
+                }
             }
         }
 
@@ -43,6 +48,21 @@ namespace Game
                 }
             }
             return 0;
+        }
+
+        public void SpawnAmmo()
+        {
+            int i = 0;
+            while (i < 5)
+            {
+                X = 5 + Rnd.Next(Board.GetLength(1) - 6);
+                Y = 2 + Rnd.Next(Board.GetLength(0) - 3);
+                if (Board[Y, X] == Ruta.Empty)
+                {
+                    Board[Y, X] = Ruta.Ammo;
+                    i++;
+                }
+            }
         }
     }
 }

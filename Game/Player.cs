@@ -16,18 +16,20 @@ namespace Game
         public int PrevY { get; set; }
         public ConsoleKeyInfo UserMovementInput { get; set; }
         public int Health { get; set; }
+        public int Ammo { get; set; }
 
         public Player()     //Sets the start values for the player
         {
             X = 50; 
             Y = 20; 
             Health = 1000;
+            Ammo = 10;
             UserMovementInput = new ConsoleKeyInfo();
             Console.CursorVisible = false;
             Board[Y, X] = Ruta.Player;
         }
 
-        public bool UpdatePlayerPosititon() //Checks the player position and resets it to the previus location if nessesary
+        public int UpdatePlayerPosititon() //Checks the player position and resets it to the previus location if nessesary
         {
             Board[PrevY, PrevX] = Ruta.Empty;
             if (Board[Y, X] == Ruta.Wall)
@@ -45,7 +47,7 @@ namespace Game
                 else
                 {
                     Board[Y, X] = Ruta.Player;
-                    return true;
+                    return 1;
                 }
             }
             else if (Board[Y, X] == Ruta.Enemie)
@@ -56,12 +58,20 @@ namespace Game
             {
                 NumbOfKeys++;
             }
+            else if (Board[Y, X] == Ruta.Bomb)
+            {
+                return 2;
+            }
+            else if (Board[Y, X] == Ruta.Ammo)
+            {
+                Ammo += 5;
+            }
             
             Board[Y, X] = Ruta.Player;
-            return false;
+            return 0;
         }
 
-        public void MovePlayer()    //Moves the player in the diretion that is pressed
+        public bool MovePlayer()    //Moves the player in the diretion that is pressed
         {
             UserMovementInput = Console.ReadKey(true);
 
@@ -70,20 +80,20 @@ namespace Game
 
             switch (UserMovementInput.Key)
             {
-                case ConsoleKey.W:
                 case ConsoleKey.UpArrow:
+                case ConsoleKey.W:
                     Y--;
                     break;
-                case ConsoleKey.S:
                 case ConsoleKey.DownArrow:
+                case ConsoleKey.S:
                     Y++;
                     break;
-                case ConsoleKey.A:
                 case ConsoleKey.LeftArrow:
+                case ConsoleKey.A:
                     X--;
                     break;
-                case ConsoleKey.D:
                 case ConsoleKey.RightArrow:
+                case ConsoleKey.D:
                     X++;
                     break;
                 case ConsoleKey.Q:
@@ -101,6 +111,177 @@ namespace Game
                 case ConsoleKey.X:
                     X++;
                     Y++;
+                    break;
+                case ConsoleKey.U:
+                    if (Ammo > 0)
+                    {
+                        Fire(2);
+                        Ammo--;
+                    }
+                    break;
+                case ConsoleKey.K:
+                    if (Ammo > 0)
+                    {
+                        Fire(1);
+                        Ammo--;
+                    }
+                    break;
+                case ConsoleKey.J:
+                    if (Ammo > 0)
+                    {
+                        Fire(0);
+                        Ammo--;
+                    }
+                    break;
+                case ConsoleKey.H:
+                    if (Ammo > 0)
+                    {
+                        Fire(3);
+                        Ammo--;
+                    }
+                    break;
+                case ConsoleKey.M:
+                    if (Ammo > 0)
+                    {
+                        Fire(4);
+                        Ammo--;
+                    }
+                    break;
+                case ConsoleKey.N:
+                    if (Ammo > 0)
+                    {
+                        Fire(5);
+                        Ammo--;
+                    }
+                    break;
+                case ConsoleKey.Y:
+                    if (Ammo > 0)
+                    {
+                        Fire(6);
+                        Ammo--;
+                    }
+                    break;
+                case ConsoleKey.I:
+                    if (Ammo > 0)
+                    {
+                        Fire(7);
+                        Ammo--;
+                    }
+                    break;
+                case ConsoleKey.B:
+                    return true;
+                case ConsoleKey.Spacebar:
+                    if (Health < 1000)
+                    {
+                        Health += 2;
+                    }
+                    break;
+            }
+            return false;
+        }
+
+        public void PlayerUpdateVisibility()
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                for (int j = 0; j < 40; j++)
+                {
+                    if (Y - 8 + i > 0 && X - 20 + j > 0 && Y - 8 + i < IsVisible.GetLength(0) &&
+                        X - 20 + j < IsVisible.GetLength(1))
+                    {
+                        if (IsVisible[Y - 8 + i, X - 20 + j] == false)
+                        {
+                            IsVisible[Y - 8 + i, X - 20 + j] = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Fire(int direction)
+        {
+            int i = 1;
+            switch (direction)
+            {
+                case 0: // J
+                    while (Board[Y + i, X] == Ruta.Empty)
+                    {
+                        i++;
+                    }
+                    if (Board[Y + i, X] == Ruta.Enemie)
+                    {
+                        Board[Y + i, X] = Ruta.Shot;
+                    }
+                    break;
+                case 1: // K
+                    while (Board[Y, X + i] == Ruta.Empty)
+                    {
+                        i++;
+                    }
+                    if (Board[Y, X + i] == Ruta.Enemie)
+                    {
+                        Board[Y, X + i] = Ruta.Shot;
+                    }
+                    break;
+                case 2: // U
+                    while (Board[Y - i, X] == Ruta.Empty)
+                    {
+                        i++;
+                    }
+                    if (Board[Y - i, X] == Ruta.Enemie)
+                    {
+                        Board[Y - i, X] = Ruta.Shot;
+                    }
+                    break;
+                case 3: // H
+                    while (Board[Y, X - i] == Ruta.Empty)
+                    {
+                        i++;
+                    }
+                    if (Board[Y, X - i] == Ruta.Enemie)
+                    {
+                        Board[Y, X - i] = Ruta.Shot;
+                    }
+                    break;
+                case 4: // M
+                    while (Board[Y + i, X + i] == Ruta.Empty)
+                    {
+                        i++;
+                    }
+                    if (Board[Y + i, X + i] == Ruta.Enemie)
+                    {
+                        Board[Y + i, X + i] = Ruta.Shot;
+                    }
+                    break;
+                case 5: // N
+                    while (Board[Y + i, X - i] == Ruta.Empty)
+                    {
+                        i++;
+                    }
+                    if (Board[Y + i, X - i] == Ruta.Enemie)
+                    {
+                        Board[Y + i, X - i] = Ruta.Shot;
+                    }
+                    break;
+                case 6: // Y
+                    while (Board[Y - i, X - i] == Ruta.Empty)
+                    {
+                        i++;
+                    }
+                    if (Board[Y - i, X - i] == Ruta.Enemie)
+                    {
+                        Board[Y - i, X - i] = Ruta.Shot;
+                    }
+                    break;
+                case 7: // I
+                    while (Board[Y - i, X + i] == Ruta.Empty)
+                    {
+                        i++;
+                    }
+                    if (Board[Y - i, X + i] == Ruta.Enemie)
+                    {
+                        Board[Y - i, X + i] = Ruta.Shot;
+                    }
                     break;
             }
         }

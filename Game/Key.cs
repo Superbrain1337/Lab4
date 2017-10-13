@@ -21,10 +21,10 @@ namespace Game
                 if (Board[Y, X] == Ruta.Empty)
                 {
                     Board[Y, X] = Ruta.Key;
+                    IsVisible[Y, X] = true;
                     KeyCount++;
                 }
             }
         }
-
     }
 }
